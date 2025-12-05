@@ -3,21 +3,63 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '@/components/indexPage/hero';
 import JenjangPendidikan from '@/components/indexPage/JenjangPendidikan';
 import Welcome from '@/components/indexPage/Welcome.astro';
+import { Separator } from '@/components/ui/separator';
+import KeunggulanPondok from '@/components/indexPage/Keunggulan';
+import Testimoni from '@/components/indexPage/Testimonies';
+import GalleryCarousel from '@/components/indexPage/GalleryCarousel';
+import LatestVideos from '@/components/indexPage/LatestVideos';
+import LatestBlog from '@/components/indexPage/LatestBlog';
+import OrganizationStructure from '@/components/indexPage/StrukturOrganisasi';
+import CTAContactSection from '@/components/indexPage/CTAContactSection';
+import FAQSection from '@/components/indexPage/FAQ';
+
 ---
 
 <Layout>
   <main class="w-full flex flex-col">
-
     <!-- HERO SECTION -->
     <section class="w-full bg-background">
       <Hero client:load />
     </section>
-	<!-- WELCOME SECTION -->
-	<section class="w-full md:pt-6 bg-background">
-    <Welcome />
-  </section>
-  <section class="w-full">
-    <JenjangPendidikan client:load/>
-  </section>
+    <!-- WELCOME SECTION -->
+    <section class="w-full md:pt-6 bg-background">
+      <Welcome />
+    </section>
+    <Separator />
+    <section class="w-full pt-10 pb-4">
+      <JenjangPendidikan client:load/>
+    </section>
+    <Separator />
+    <section class="w-full pt-10 pb-8 bg-secondary">
+      <KeunggulanPondok client:load/>
+    </section>
+    <Separator />
+    <section>
+      <OrganizationStructure client:load/>
+    </section>
+    <Separator />
+    <section>
+      <Testimoni client:load/>
+    </section>
+    <Separator />
+    <section>
+      <GalleryCarousel client:load/>
+    </section>
+    <Separator />
+    <section>
+      <LatestVideos client:load/>
+    </section>
+    <Separator />
+    <section>
+      <LatestBlog client:load/>
+    </section>
+    <Separator />
+    <section>
+      <CTAContactSection client:load/>
+    </section>
+    <Separator />
+    <section>
+      <FAQSection client:load/>
+    </section>
   </main>
 </Layout>

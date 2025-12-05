@@ -8,6 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "../ui/button";
 
 const educationData = [
   {
@@ -34,10 +35,10 @@ const educationData = [
 
 export default function EducationSection() {
   return (
-    <section className="w-full py-4 md:py-2 bg-background">
+    <section className="w-full py-4 md:pb-0 bg-background">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
+          <h2 className="text-3xl mb-4 md:text-4xl font-bold tracking-tight mb-2">
             Jenjang Pendidikan
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -50,17 +51,17 @@ export default function EducationSection() {
           <div className="container max-w-7xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {educationData.map((edu) => (
-                <Card className="relative h-80 shadow-lg border bg-card overflow-hidden group">
+                <Card className="relative h-80 shadow-sm hover:shadow-lg transition-all duration-300 border bg-card overflow-hidden group">
                   {/* IMAGE MENUTUP SELURUH CARD */}
                   <img
                     src={edu.img}
                     alt={edu.title}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
 
                   {/* CONTENT OVERLAY */}
                   <CardContent className="absolute bottom-0 left-0 w-full p-4 bg-card" style={{ height: 'calc(100% / 2.5)' }}>
-                    <CardTitle className="text-xl font-semibold">{edu.title}</CardTitle>
+                    <CardTitle className="text-xl font-semibold py-2 group-hover:text-primary transition-colors">{edu.title}</CardTitle>
                     <CardDescription>{edu.description}</CardDescription>
                   </CardContent>
                 </Card>
@@ -75,39 +76,33 @@ export default function EducationSection() {
           <div className="flex gap-4 pb-4">
             {educationData.map((edu) => (
          <Card
-  key={edu.title}
-  className="relative flex-shrink-0 w-[70vw] max-w-xs shadow-lg border bg-card overflow-hidden h-[70vw]"
->
-  {/* IMAGE MENUTUP BAGIAN ATAS CARD */}
-  <img
-    src={edu.img}
-    alt={edu.title}
-    className="absolute top-0 left-0 w-full h-[60%] object-cover"
-  />
+            key={edu.title}
+            className="relative flex-shrink-0 w-[70vw] max-w-xs shadow-lg border bg-card overflow-hidden h-[70vw]"
+          >
+            {/* IMAGE MENUTUP BAGIAN ATAS CARD */}
+            <img
+              src={edu.img}
+              alt={edu.title}
+              className="absolute top-0 left-0 w-full h-[60%] object-cover"
+            />
 
-  {/* CONTENT MENUTUP BAGIAN BAWAH CARD */}
-  <CardContent className="absolute bottom-0 left-0 w-full h-[40%] p-4 bg-card flex flex-col justify-start gap-2">
-    {/* TITLE DI ATAS */}
-    <CardTitle className="text-xl md:text-2xl font-semibold">{edu.title}</CardTitle>
-    
-    {/* DESKRIPSI DI BAWAH TITLE */}
-    <CardDescription className="text-sm md:text-base line-clamp-3">
-      {edu.description}
-    </CardDescription>
-  </CardContent>
-</Card>
-
-
-
-
-
-
+            {/* CONTENT MENUTUP BAGIAN BAWAH CARD */}
+            <CardContent className="absolute bottom-0 left-0 w-full h-[40%] p-4 bg-card flex flex-col justify-start gap-2">
+              {/* TITLE DI ATAS */}
+              <CardTitle className="text-xl md:text-2xl font-semibold">{edu.title}</CardTitle>
+              
+              {/* DESKRIPSI DI BAWAH TITLE */}
+              <CardDescription className="text-sm md:text-base line-clamp-3">
+                {edu.description}
+              </CardDescription>
+            </CardContent>
+          </Card>
             ))}
           </div>
           <ScrollBar orientation="horizontal"/>
         </ScrollArea>
-
       </div>
+
     </section>
   );
 }
