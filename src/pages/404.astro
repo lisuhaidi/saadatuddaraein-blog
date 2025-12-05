@@ -1,0 +1,30 @@
+---
+import { Button } from "@/components/ui/button";
+import errorSvg from "@/assets/error.svg";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="404 - Halaman Tidak Ditemukan">
+  <div class="min-h-screen bg-background text-foreground font-sans flex items-center justify-center px-6">
+    <main class="text-center space-y-6 max-w-lg">
+  
+       <!-- SVG Sedih + Animasi -->
+      <!-- Judul -->
+      <object 
+          type="image/svg+xml"
+          data={errorSvg.src}
+          class="w-64 h-64 mx-auto">
+      </object>
+      <!-- Deskripsi -->
+      <p class="text-xl text-muted-foreground">
+        Afwan, Halaman yang Anda Cari Tidak Ditemukan.
+      </p>
+  
+      <!-- Tombol -->
+      <Button>
+        <a href="/">Kembali ke Beranda</a>
+      </Button>
+  
+    </main>
+  </div>
+</Layout>

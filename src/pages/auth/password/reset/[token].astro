@@ -1,0 +1,12 @@
+---
+import ResetPasswordForm from "@/components/authComponents/ResetPasswordForm";
+import AuthLayout from "@/layouts/AuthLayout.astro";
+const { token } = Astro.params;
+---
+
+<AuthLayout>
+    <ResetPasswordForm client:only="react" token={token} />
+</AuthLayout>
+
+
+

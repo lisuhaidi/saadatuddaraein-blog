@@ -1,3 +1,9 @@
+---
+import '../styles/global.css';
+import Navbar from '@/components/layout/navbar';
+import Footer from '@/components/layout/footer';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -8,7 +14,12 @@
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<slot />
+				<Navbar client:load />
+		<div class="flex min-h-[calc(100vh-10rem)] items-center justify-center">
+   			<slot />
+		</div>
+		<Footer client:load/>
+
 	</body>
 </html>
 

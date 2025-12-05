@@ -1,0 +1,10 @@
+---
+import RegisterForm from '../../components/authComponents/RegisterForm'
+import AuthLayout from '@/layouts/AuthLayout.astro'
+---
+
+<AuthLayout>
+  <div class="flex w-full flex items-center justify-center">
+      <RegisterForm client:load />
+  </div>
+</AuthLayout>

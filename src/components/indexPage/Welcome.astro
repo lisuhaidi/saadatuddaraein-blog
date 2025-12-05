@@ -1,0 +1,65 @@
+---
+import { Card, CardContent } from "@/components/ui/card";
+---
+
+<section class="w-full py-8 md:py-16">
+  <div 
+    class="
+      container max-w-7xl mx-auto px-6 
+      grid grid-cols-1 
+      md:grid-cols-[1.618fr_1fr] 
+      gap-6 md:gap-10
+      items-center
+    "
+  >
+
+    <!-- TEXT CARD -->
+    <Card className="shadow-lg border bg-card h-full">
+      <CardContent className="p-4 md:p-8 space-y-4 md:space-y-6">
+
+        <!-- MOBILE IMAGE -->
+        <div class="md:hidden flex justify-center mb-4">
+          <img
+            src="https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"
+            alt="Foto Pimpinan Pondok"
+            class="rounded-xl shadow-xl object-cover w-full max-w-xs aspect-[3/4]"
+          />
+        </div>
+
+        <!-- TITLE -->
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-2 text-center md:text-left">
+          Sambutan Pimpinan Pesantren
+        </h2>
+
+        <p class="text-muted-foreground leading-relaxed text-base md:text-lg">
+          Assalamu’alaikum warahmatullahi wabarakatuh.
+          <br /><br />
+          Dengan penuh rasa syukur, kami menyambut kehadiran para santri dan
+          wali santri di Pondok Saadatuddaraein. Kami berkomitmen membangun
+          lingkungan pendidikan Islam yang nyaman, berkarakter, dan berorientasi
+          pada akhlakul karimah. Semoga setiap langkah dan proses belajar
+          mendapatkan keberkahan serta manfaat bagi umat.
+        </p>
+
+        <!-- NAMA & JABATAN -->
+        <div class="space-y-1 text-center md:text-left">
+          <p class="font-semibold text-primary text-lg">— Mijaswati</p>
+          <p class="text-sm text-muted-foreground">
+            Pimpinan Pondok Saadatuddaraein
+          </p>
+        </div>
+
+      </CardContent>
+    </Card>
+
+    <!-- DESKTOP IMAGE -->
+    <div class="hidden md:flex justify-center h-full">
+      <img
+        src="https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"
+        alt="Foto Pimpinan Pondok"
+        class="rounded-xl shadow-xl object-cover w-full max-w-xs aspect-[3/4]" 
+      />
+    </div>
+
+  </div>
+</section>

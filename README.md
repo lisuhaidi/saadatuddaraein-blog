@@ -44,3 +44,16 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## API Configuration
+
+This project reads the REST API base URL from an environment variable used by Vite/Astro.
+
+- Create a `.env` file in the project root (already ignored by git).
+- Add the variable `VITE_API_BASE_URL`, for example:
+
+```
+VITE_API_BASE_URL=http://localhost:8001/api/v1/
+```
+
+The client-side code uses `import.meta.env.VITE_API_BASE_URL`. The `.env.example` file shows a template you can copy.

@@ -1,0 +1,12 @@
+---
+import VerifyOTPForm from '../../components/authComponents/VerifyOTPForm'
+import AuthLayout from '@/layouts/AuthLayout.astro'
+---
+
+<AuthLayout>
+  <div class="min-h-[70vh] flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-2xl">
+      <VerifyOTPForm client:load />
+    </div>
+  </div>
+</AuthLayout>
