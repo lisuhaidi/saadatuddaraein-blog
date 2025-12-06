@@ -1,0 +1,74 @@
+---
+// pages/info/news.astro
+import ListLayout from '@/layouts/ListLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getArticles } from '@/lib/strapi';
+
+// Panggilan API terjadi di Server-Side
+const articles = await getArticles();
+// Normalisasi data untuk template
+const preparedArticles = (articles || []).map((article: any) => {
+  // Ekstrak data dengan fallback untuk berbagai struktur Strapi
+  const authorName = article?.author?.name || article?.author?.data?.attributes?.name || 'Anonymous';
+  
+  // Avatar - cek berbagai kemungkinan struktur
+  const authorAvatar = 
+    article?.author?.avatar?.formats?.small?.url || 
+    article?.author?.avatar?.data?.attributes?.url || 
+    null;
+  
+  const categoryName = article?.category?.name || article?.category?.data?.attributes?.name || null;
+  const published = article?.publishedAt || article?.createdAt || new Date().toISOString();
+  const slug = article?.slug || `article-${article.id}`;
+  const coverLink = article?.coverlink || null;
+
+  return {
+    id: article.id,
+    title: article.title || 'Untitled',
+    description: article.description || '',
+    authorName,
+    authorAvatar: authorAvatar ? `http://localhost:1337${authorAvatar}` : undefined,
+    categoryName,
+    cover: coverLink,
+    published,
+    slug
+  };
+});
+---
+
+<ListLayout
+  title="Berita & Artikel"
+  description="Temukan informasi dan insight terbaru dari kami"
+  subtitle={`${preparedArticles.length} artikel tersedia`}
+  columns={3}
+  showSearch={true}
+  pageTitle="Berita & Artikel"
+  emptyStateTitle="Belum ada artikel"
+  emptyStateDescription="Artikel akan muncul di sini setelah dipublikasikan"
+>
+  {/* Optional: Tombol Action di Header */}
+  <a 
+    slot="actions" 
+    href="/admin/articles/new"
+    class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+  >
+    + Tulis Artikel
+  </a>
+
+  {/* Content - Langsung map ke BlogCard, ListLayout yang handle grid */}
+  {preparedArticles.map((article) => (
+    <BlogCard
+      cover={article.cover}
+      title={article.title}
+      description={article.description}
+      category={article.categoryName}
+      publishedAt={article.published}
+      author={{
+        name: article.authorName,
+        avatar: article.authorAvatar
+      }}
+      slug={article.slug}
+    />
+  ))}
+
+</ListLayout>

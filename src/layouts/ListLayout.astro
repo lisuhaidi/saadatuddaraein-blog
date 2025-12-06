@@ -1,0 +1,133 @@
+---
+// src/layouts/ListLayout.astro
+import Layout from '@/layouts/Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  subtitle?: string;
+  columns?: 1 | 2 | 3 | 4;
+  showSearch?: boolean;
+  showFilter?: boolean;
+  emptyStateTitle?: string;
+  emptyStateDescription?: string;
+  pageTitle?: string; // For SEO
+}
+
+const {
+  title,
+  description,
+  subtitle,
+  columns = 3,
+  emptyStateTitle = 'Belum ada konten',
+  emptyStateDescription = 'Konten akan muncul di sini setelah ditambahkan',
+  pageTitle
+} = Astro.props;
+
+// Grid columns mapping
+const gridCols = {
+  1: 'grid-cols-1',
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+};
+---
+
+<Layout title={pageTitle || title}>
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    {/* Header Section */}
+    <div class="mb-12">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        {/* Title & Description */}
+        <div class="flex-1">
+          <h1 class="text-4xl font-bold text-foreground">
+            {title}
+          </h1>
+          {subtitle && (
+            <p class="mt-1 text-sm text-muted-foreground">
+              {subtitle}
+            </p>
+          )}
+          {description && (
+            <p class="mt-2 text-lg text-muted-foreground">
+              {description}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Content Grid */}
+    <div id="content-grid" class={`grid gap-6 ${gridCols[columns]}`}>
+      <slot />
+    </div>
+
+    {/* Empty State */}
+    <div id="empty-state" class="hidden">
+      <div class="flex min-h-[400px] items-center justify-center">
+        <div class="text-center">
+          <svg class="mx-auto h-12 w-12 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-foreground">
+            {emptyStateTitle}
+          </h3>
+          <p class="mt-1 text-sm text-muted-foreground">
+            {emptyStateDescription}
+          </p>
+          <div class="mt-6">
+            <slot name="empty-action" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Pagination Slot */}
+    <div class="mt-12">
+      <slot name="pagination" />
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Simple client-side search functionality
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const contentGrid = document.getElementById('content-grid');
+  const emptyState = document.getElementById('empty-state');
+
+  if (searchInput && contentGrid) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+      const items = contentGrid.children;
+      let visibleCount = 0;
+
+      Array.from(items).forEach((item) => {
+        const text = item.textContent?.toLowerCase() || '';
+        if (text.includes(searchTerm)) {
+          (item as HTMLElement).style.display = '';
+          visibleCount++;
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+
+      // Toggle empty state
+      if (emptyState) {
+        if (visibleCount === 0 && searchTerm !== '') {
+          contentGrid.classList.add('hidden');
+          emptyState.classList.remove('hidden');
+        } else {
+          contentGrid.classList.remove('hidden');
+          emptyState.classList.add('hidden');
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Smooth transitions */
+  #content-grid > * {
+    transition: opacity 0.2s ease-in-out;
+  }
+</style>
