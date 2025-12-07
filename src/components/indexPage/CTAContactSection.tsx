@@ -1,22 +1,21 @@
 import { Card } from "@/components/ui/card";
 import { MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
 
-export default function CTAContactSection() {
-  const whatsappNumber = "6281234567890"; // Ganti dengan nomor WA sebenarnya
+export default function CTAContactSection({telephone, email, address, gmapsURL}) {
   const whatsappMessage = encodeURIComponent("Assalamualaikum, saya ingin bertanya tentang pendaftaran santri baru di Saadatuddaraein");
   
   const contactInfo = [
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Telepon",
-      value: "+62 812-3456-7890",
-      link: "tel:+6281234567890",
+      value: telephone,
+      link: `tel:${telephone}`,
     },
     {
       icon: <Mail className="w-5 h-5" />,
       label: "Email",
-      value: "info@saadatuddaraein.sch.id",
-      link: "mailto:info@saadatuddaraein.sch.id",
+      value: email,
+      link: `mailto:${email}`,
     },
     {
       icon: <Clock className="w-5 h-5" />,
@@ -40,7 +39,7 @@ export default function CTAContactSection() {
           
           {/* WhatsApp CTA Button */}
           <a
-            href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+            href={`https://wa.me/${telephone}?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -100,9 +99,7 @@ export default function CTAContactSection() {
                     Yayasan Saadatuddaraein
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Jl. Pendidikan No. 123, Kecamatan Bantul<br />
-                    Kabupaten Bantul, Yogyakarta 55711<br />
-                    Indonesia
+                    {address}
                   </p>
                 </div>
               </div>
@@ -113,7 +110,7 @@ export default function CTAContactSection() {
           <div className="h-full min-h-[400px]">
             <Card className="h-full overflow-hidden shadow-sm">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.432374158595!2d110.32844631477698!3d-7.738695994419332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5ae3dbd859d1%3A0x19e7a03b25955a84!2sBantul%2C%20Yogyakarta!5e0!3m2!1sen!2sid!4v1234567890123!5m2!1sen!2sid"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5755.906750537214!2d103.00407589999999!3d-0.5203593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2859f1caa75ea5%3A0x35f0703abf43f347!2sPESANTREN%20SA&#39;ADATUDDARAEIN%20SUHADA!5e1!3m2!1sid!2sid!4v1765061366958!5m2!1sid!2sid"
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: '400px' }}

@@ -86,7 +86,7 @@ function TestimonialRow({ testimonials, reverse = false }: { testimonials: typeo
       className="flex gap-6 overflow-hidden select-none"
     >
       {loopedTestimonials.map((t, idx) => (
-        <Card key={idx} className="flex-shrink-0 w-80 shadow-sm border bg-card p-6">
+        <Card key={`${t.name}-${idx}`} className="flex-shrink-0 w-80 shadow-sm border bg-card p-6">
           <div className="flex items-start gap-4 mb-4">
             <img
               src={t.photo}

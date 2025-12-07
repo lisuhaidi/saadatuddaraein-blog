@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { getArticles } from "@/lib/strapi";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Calendar, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BlogCardSkeleton } from "../BlogCardSekeleton";
 
 interface Article {
   id: number;
@@ -33,11 +34,14 @@ export default function LatestBlog() {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        // Pakai fungsi dari lib/strapi.ts
-        const data = await getArticles();
+        const response = await fetch('/api/listBlog.json');
+        if (!response.ok) throw new Error('Failed to fetch');
+        
+        const data = await response.json();
+        const reversedData = data.slice().reverse();
         
         // Normalisasi data - ambil 4 artikel terbaru
-        const preparedArticles = (data || [])
+        const preparedArticles = (reversedData || [])
           .slice(0, 4)
           .map((article: any) => {
             const authorName = article?.author?.name || 'Anonymous';
@@ -76,8 +80,16 @@ export default function LatestBlog() {
     return (
       <section className="w-full py-16 bg-background">
         <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center">
-            <p className="text-muted-foreground">Memuat artikel...</p>
+          <div className="text-center mb-10">
+            <Skeleton className="h-10 w-64 mx-auto mb-4" />
+            <Skeleton className="h-6 w-96 mx-auto" />
+          </div>
+          
+          {/* Skeleton Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((n) => (
+              <BlogCardSkeleton key={n} />
+            ))}
           </div>
         </div>
       </section>
@@ -115,7 +127,7 @@ export default function LatestBlog() {
               {articles.map((post) => (
                 <a
                   key={post.id}
-                  href={`/info/news/${post.slug}`}
+                  href={`/blog/${post.slug}`}
                   className="group block"
                 >
                   <Card className="h-full overflow-hidden border shadow-sm hover:shadow-lg transition-all duration-300">
@@ -169,7 +181,7 @@ export default function LatestBlog() {
                       {/* Author & Read More */}
                       <div className="flex items-center justify-between pt-3 border-t border-border">
                         <div className="flex items-center gap-2">
-                           <img
+                          <img
                             src={post.authorAvatar || '/default-avatar.png'}
                             alt={post.authorName}
                             className="w-7 h-7 rounded-full object-cover"
@@ -193,7 +205,7 @@ export default function LatestBlog() {
             {/* View All Button */}
             <div className="flex justify-center mt-10">
               <a
-                href="/info/news"
+                href="/blog"
                 className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
               >
                 Lihat Semua Artikel

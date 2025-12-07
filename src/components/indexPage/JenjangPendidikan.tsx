@@ -51,7 +51,7 @@ export default function EducationSection() {
           <div className="container max-w-7xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {educationData.map((edu) => (
-                <Card className="relative h-80 shadow-sm hover:shadow-lg transition-all duration-300 border bg-card overflow-hidden group">
+                <Card key={edu.title} className="relative h-80 shadow-sm hover:shadow-lg transition-all duration-300 border bg-card overflow-hidden group">
                   {/* IMAGE MENUTUP SELURUH CARD */}
                   <img
                     src={edu.img}

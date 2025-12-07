@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ArrowUp } from "lucide-react";
 
-export default function SchoolFooter() {
+export default function SchoolFooter({ description, telephone, email, address }: { title: string; description: string; telephone: string; email: string; address: string }) {
   return (
     <footer className="w-full border-t bg-background mt-12">
       <div className="max-w-7xl mx-auto px-6 py-10">
@@ -13,8 +13,7 @@ export default function SchoolFooter() {
           <div>
             <h3 className="text-lg font-semibold">Profil Sekolah</h3>
             <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-              Sekolah kami berkomitmen menghadirkan pendidikan yang berkualitas,
-              berkarakter, dan berwawasan masa depan untuk seluruh siswa.
+              {description}
             </p>
           </div>
 
@@ -42,10 +41,9 @@ export default function SchoolFooter() {
           <div>
             <h3 className="text-lg font-semibold">Kontak</h3>
             <ul className="space-y-2 mt-3 text-sm">
-              <li>Jl. Pendidikan No. 123</li>
-              <li>Tembilahan, Riau</li>
-              <li>Email: info@sekolahku.sch.id</li>
-              <li>Telepon: (0768) 123456</li>
+              <li>{address}</li>
+              <li>Email: {email}</li>
+              <li>Telepon: {telephone}</li>
             </ul>
           </div>
         </div>

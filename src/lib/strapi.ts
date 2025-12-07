@@ -1,5 +1,7 @@
 // src/lib/strapi.ts
 // Mengambil variabel dari .env
+import axios from "axios";
+
 const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
 const STRAPI_API_TOKEN = import.meta.env.PUBLIC_STRAPI_API_TOKEN;
 
@@ -23,7 +25,6 @@ export async function fetchStrapiData(endpoint: string, query: string = DEFAULT_
       'Content-Type': 'application/json',
     },
   });
-
   if (!response.ok) {
     // Log error status untuk debugging
     const errorText = await response.text();
@@ -41,7 +42,6 @@ export async function fetchStrapiData(endpoint: string, query: string = DEFAULT_
         ...item.attributes,
       }
     }
-
     // Jika attributes tidak ada, kembalikan seluruh item (agar caller dapat melihat struktur lengkap)
     return item
   })
@@ -60,3 +60,55 @@ export async function getArticleBySlug(slug: string) {
   const data = await fetchStrapiData('articles', customQuery);
   return data[0] || null; // Mengembalikan objek artikel pertama atau null
 }
+
+//fungsi khusus untuk mengambil faq
+export async function getFaq() {
+  return fetchStrapiData('faqs');
+}
+
+// fungsi khusus untuk mengambil gambar untuk hero
+export async function getHeroImage() {
+  return fetchStrapiData('heroimages');
+}
+
+
+
+
+// *****************
+//fungsi khusus untuk mengambil single collection about
+export async function fetchSingleCollection( {endpoint, customQuery = 'populate=*'} : {endpoint: string, customQuery?: string} ) {
+  const url = `${STRAPI_URL}/api/${endpoint}?${customQuery}`;
+  
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${STRAPI_API_TOKEN}`, 
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    // Log error status untuk debugging
+    const errorText = await response.text();
+    throw new Error(`Gagal mengambil data dari ${endpoint}. Status: ${response.status}. Error: ${errorText}`); // ✅ FIXED
+  }
+  const json = await response.json();
+  
+    if (json.data && json.data.attributes) {
+    return {
+      id: json.data.id,
+      ...json.data.attributes
+    };
+  }
+  // Fallback for unexpected structure
+  return json.data;
+}
+
+//fungsi khusus untuk mengambil about
+export async function getAbout() {
+  return fetchSingleCollection( {endpoint: 'about'} );
+}
+
+export async function getWelcome() {
+  return fetchSingleCollection( {endpoint: 'welcome'} );
+};

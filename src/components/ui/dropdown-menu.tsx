@@ -237,11 +237,11 @@ function DropdownMenuSubContent({
 }
 
 
-function MobileDropdown({ label, children, ...props }: { label: string; children: React.ReactNode }) {
+function MobileDropdown({ label, children, className, ...props }: { label: string; children: React.ReactNode, className?: string }) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="flex flex-col" {...props}>
+    <div className={cn("flex flex-col", className)} {...props}>
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between w-full hover:text-primary transition"

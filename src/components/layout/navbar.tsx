@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
-export default function Navbar() {
+export default function Navbar({ title }: { title: string }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
 
         {/* Logo */}
-        <a href="/" className="text-xl font-bold">Saadatuddaraein</a>
+        <a href="/" className="text-xl font-bold">{title}</a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6 text-sm">

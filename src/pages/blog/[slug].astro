@@ -1,0 +1,49 @@
+---
+// src/pages/blog/[slug].astro
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { getArticleBySlug } from '@/lib/strapi';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/blog');
+}
+
+const article = await getArticleBySlug(slug);
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+// Extract content from blocks and process line breaks
+let content = article.blocks
+  ?.filter((block: any) => block.__component === 'shared.rich-text')
+  .map((block: any) => {
+    // Replace double line breaks with paragraph separator
+    return block.body
+      .split('\n\n')
+      .map((para: string) => para.trim())
+      .filter((para: string) => para.length > 0)
+      .join('\n\n');
+  })
+  .join('\n\n') || '';
+// Calculate read time (average 200 words per minute)
+const wordCount = content.split(/\s+/).length;
+const readTime = Math.ceil(wordCount / 200);
+// Extract tags if available
+const tags = article.tags?.map((tag: any) => tag.name) || [];
+---
+
+<BlogLayout
+  title={article.title}
+  description={article.description}
+  author={article.author?.name || 'Admin'}
+  date={article.published || article.publishedAt}
+  readTime={`${readTime} menit`}
+  category={article.category?.name || 'Artikel'}
+  image={article.coverlink}
+  tags={tags}
+  content={content}
+>
+  <!-- Content will be rendered from the 'content' prop -->
+</BlogLayout>

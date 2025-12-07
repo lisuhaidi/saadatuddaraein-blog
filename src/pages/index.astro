@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '@/components/indexPage/hero';
+import Hero from '@/components/indexPage/Hero';
 import JenjangPendidikan from '@/components/indexPage/JenjangPendidikan';
 import Welcome from '@/components/indexPage/Welcome.astro';
 import { Separator } from '@/components/ui/separator';
@@ -13,13 +13,26 @@ import OrganizationStructure from '@/components/indexPage/StrukturOrganisasi';
 import CTAContactSection from '@/components/indexPage/CTAContactSection';
 import FAQSection from '@/components/indexPage/FAQ';
 
+
+const url = new URL('/api/about.json', Astro.url);
+const about = await fetch(url).then(r => r.json());
+const dataAbout = {
+  telephone : about?.telephone || '+62812345678',
+  email : about?.email || 'saadatuddaraein@yahoo.com',
+  address : about?.address || 'Setia Kawan, Kec. Suhada, Kab Indragiri Hilir, Riau',
+  gmapsURL : about?.gmap_url,
+  title : about?.title || 'Saadatuddaraein',
+  description : about?.description,
+  slogan : about?.slogan
+}
+
 ---
 
 <Layout>
   <main class="w-full flex flex-col">
     <!-- HERO SECTION -->
     <section class="w-full bg-background">
-      <Hero client:load />
+      <Hero slogan={dataAbout.slogan} title={dataAbout.title} client:load />
     </section>
     <!-- WELCOME SECTION -->
     <section class="w-full md:pt-6 bg-background">
@@ -55,7 +68,7 @@ import FAQSection from '@/components/indexPage/FAQ';
     </section>
     <Separator />
     <section>
-      <CTAContactSection client:load/>
+      <CTAContactSection telephone={dataAbout.telephone} email={dataAbout.email} address={dataAbout.address} gmapsURL={dataAbout.gmapsURL} client:load/>
     </section>
     <Separator />
     <section>

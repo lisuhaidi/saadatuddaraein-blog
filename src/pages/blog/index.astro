@@ -5,9 +5,12 @@ import BlogCard from '@/components/BlogCard.astro';
 import { getArticles } from '@/lib/strapi';
 
 // Panggilan API terjadi di Server-Side
-const articles = await getArticles();
+const url = new URL('/api/listBlog.json', Astro.url);
+const articles = await fetch(url).then(r => r.json());
 // Normalisasi data untuk template
-const preparedArticles = (articles || []).map((article: any) => {
+const reversedArticles = articles.slice().reverse();
+
+const preparedArticles = (reversedArticles || []).map((article: any) => {
   // Ekstrak data dengan fallback untuk berbagai struktur Strapi
   const authorName = article?.author?.name || article?.author?.data?.attributes?.name || 'Anonymous';
   

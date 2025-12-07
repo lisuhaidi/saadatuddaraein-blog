@@ -2,6 +2,11 @@
 import '../styles/global.css';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import { getAbout } from '@/lib/strapi';
+
+const url = new URL('/api/about.json', Astro.url);
+const dataAbout = await fetch(url).then(r => r.json());
+
 ---
 
 <!doctype html>
@@ -10,15 +15,16 @@ import Footer from '@/components/layout/footer';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		  <link rel="stylesheet" href="/transition.css" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
 	<body>
-				<Navbar client:load />
+		<Navbar title={dataAbout?.title || 'Saadatuddaraein'} client:load />
 		<div class="flex min-h-[calc(100vh-10rem)] items-center justify-center">
    			<slot />
 		</div>
-		<Footer client:load/>
+		<Footer description={dataAbout?.description} telephone={dataAbout?.telephone} email={dataAbout?.email} address={dataAbout?.address} client:load/>
 
 	</body>
 </html>
