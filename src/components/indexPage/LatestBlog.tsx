@@ -4,6 +4,7 @@ import { Calendar, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BlogCardSkeleton } from "../BlogCardSekeleton";
 
+
 interface Article {
   id: number;
   title: string;
@@ -56,7 +57,7 @@ export default function LatestBlog() {
               title: article.title || 'Untitled',
               description: article.description || '',
               authorName,
-              authorAvatar: authorAvatar ? `http://localhost:1337${authorAvatar}` : undefined,
+              authorAvatar: authorAvatar ? `${authorAvatar}` : undefined,
               categoryName,
               cover: coverLink,
               published,

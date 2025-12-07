@@ -2,14 +2,13 @@
 // pages/info/news.astro
 import ListLayout from '@/layouts/ListLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
-import { getArticles } from '@/lib/strapi';
 
 // Panggilan API terjadi di Server-Side
 const url = new URL('/api/listBlog.json', Astro.url);
 const articles = await fetch(url).then(r => r.json());
+
 // Normalisasi data untuk template
 const reversedArticles = articles.slice().reverse();
-
 const preparedArticles = (reversedArticles || []).map((article: any) => {
   // Ekstrak data dengan fallback untuk berbagai struktur Strapi
   const authorName = article?.author?.name || article?.author?.data?.attributes?.name || 'Anonymous';
@@ -30,7 +29,7 @@ const preparedArticles = (reversedArticles || []).map((article: any) => {
     title: article.title || 'Untitled',
     description: article.description || '',
     authorName,
-    authorAvatar: authorAvatar ? `http://localhost:1337${authorAvatar}` : undefined,
+    authorAvatar: authorAvatar ? `${authorAvatar}` : undefined, // ✅ Fixed
     categoryName,
     cover: coverLink,
     published,
@@ -42,7 +41,7 @@ const preparedArticles = (reversedArticles || []).map((article: any) => {
 <ListLayout
   title="Berita & Artikel"
   description="Temukan informasi dan insight terbaru dari kami"
-  subtitle={`${preparedArticles.length} artikel tersedia`}
+  subtitle={`${preparedArticles.length} artikel tersedia`} 
   columns={3}
   showSearch={true}
   pageTitle="Berita & Artikel"
@@ -73,5 +72,4 @@ const preparedArticles = (reversedArticles || []).map((article: any) => {
       slug={article.slug}
     />
   ))}
-
 </ListLayout>
