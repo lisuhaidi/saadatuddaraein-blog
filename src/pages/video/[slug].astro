@@ -1,0 +1,145 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getVideoBySlug } from '@/lib/strapi';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/video');
+}
+
+const video = await getVideoBySlug(slug);
+
+if (!video) {
+  return Astro.redirect('/404');
+}
+
+const formattedDate = new Date(video.createdAt).toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={video.title}>
+  <main class="min-w-full bg-background">
+    <div class="container max-w-4xl mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-6 pt-14  md:pt-20">
+        <a href="/" class="hover:text-primary transition-colors">Home</a>
+        <span>/</span>
+        <a href="/video" class="hover:text-primary transition-colors">Video</a>
+        <span>/</span>
+        <span class="text-foreground">{slug}</span>
+      </nav>
+      <!-- Video Thumbnail with Link -->
+      <div class="mb-8">
+        <a 
+          href={video.urlVideo}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group block relative w-full aspect-video rounded-lg overflow-hidden border bg-muted shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <img
+            src={video.urlThumbnai}
+            alt={video.title}
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors"></div>
+          
+          <!-- Play Button -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-20 h-20 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center group-hover:scale-110 transition-all shadow-lg">
+              <svg 
+                class="w-9 h-9 text-primary ml-1" 
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Platform Badge -->
+          <div class="absolute top-4 left-4 px-3 py-1.5 bg-black/80 text-white text-sm font-medium rounded-md">
+            Tonton di {video.platform}
+          </div>
+        </a>
+      </div>
+
+      <!-- Content Card -->
+      <div>
+        <!-- Title -->
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          {video.title}
+        </h1>
+
+        <!-- Meta Information -->
+        <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6 pb-6 border-b">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span>{formattedDate}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            <span>{video.author?.name || 'Admin'}</span>
+          </div>
+          <div class="inline-flex items-center px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">
+            {video.platform}
+          </div>
+        </div>
+
+        <!-- Body Content -->
+        <div class="prose prose-slate dark:prose-invert max-w-none">
+          <p class="text-base leading-relaxed text-foreground whitespace-pre-wrap">
+            {video.body}
+          </p>
+        </div>
+
+        <!-- Video Link Button -->
+        <div class="mt-6">
+          <a
+            href={video.urlVideo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors shadow-sm"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Tonton di {video.platform}
+          </a>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-8 pt-6 border-t">
+          <a
+            href="/video"
+            class="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          >
+            <svg
+              class="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Kembali ke Video
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

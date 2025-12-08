@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Mail, Facebook } from "lucide-react";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
+import BlogCardSkeleton from "../blog/BlogCardSkeleton";
 
 interface Teacher {
   id: number;
@@ -52,41 +53,36 @@ export default function OrganizationStructure() {
   }, []);
 
   if (loading) {
-    return (
-      <section className="w-full py-16 bg-background">
-        <div className="container max-w-7xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Struktur Organisasi</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Tim pengajar dan pengurus yang berpengalaman dan dedikasi tinggi dalam membimbing santri</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <Card key={i} className="h-[500px]">
-                <Skeleton className="h-[60%] w-full" />
-                <div className="p-5 h-[40%]">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/2 mb-4" />
-                  <Skeleton className="h-4 w-full mb-2" />
-                  <Skeleton className="h-4 w-full" />
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="w-full py-16 bg-background">
-        <div className="container max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold mb-4">Gagal memuat data</h2>
-          <p className="text-muted-foreground">Terjadi kesalahan saat mengambil data struktur organisasi.</p>
-        </div>
-      </section>
-    );
-  }
+        return (
+          <section className="w-full py-16 bg-background">
+            <div className="container max-w-7xl mx-auto px-6">
+              <div className="text-center mb-10">
+                <Skeleton className="h-10 w-64 mx-auto mb-4" />
+                <Skeleton className="h-6 w-96 mx-auto" />
+              </div>
+              
+              {/* Skeleton Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[1, 2, 3, 4].map((n) => (
+                  <BlogCardSkeleton key={n} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      }
+    
+      if (error) {
+        return (
+          <section className="w-full py-16 bg-background">
+            <div className="container max-w-7xl mx-auto px-6">
+              <div className="text-center">
+                <p className="text-destructive">Error: {error}</p>
+              </div>
+            </div>
+          </section>
+        );
+      }
 
   return (
     <section className="w-full py-16 bg-background">

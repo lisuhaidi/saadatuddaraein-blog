@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
 // Skeleton Loading Component
-export function BlogCardSkeleton() {
+export default function BlogCardSkeleton() {
   return (
     <div>
       {/* Image Skeleton */}

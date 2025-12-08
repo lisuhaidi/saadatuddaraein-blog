@@ -1,0 +1,21 @@
+---
+import ListLayout from "../../layouts/ListLayout.astro";
+import VideoCard from "../../components/video/VideoCard.astro";
+
+// Panggilan API terjadi di Server-Side
+const url = new URL('/api/videos.json', Astro.url);
+const preparedVideos = await fetch(url).then(r => r.json());
+const videos = preparedVideos.slice().reverse();
+---
+<ListLayout
+  title="Video Gallery"
+  description="Kumpulan video kegiatan dan pembelajaran di Saadatuddaraein."
+  columns={3}
+>
+    {
+        videos.map((video) => (
+        <VideoCard video={video} />
+        ))
+    }
+</ListLayout>
+  

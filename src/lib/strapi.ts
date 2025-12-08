@@ -66,13 +66,27 @@ export async function getTeachers() {
   const customQuery = 'populate=*&sort=createdAt:asc';
   const response = await fetchStrapiData('teachers', customQuery);  
   return response;
-
 }
 
+// Fungsi khusus untuk mengambil guru tunggal berdasarkan slug
 export async function getTeacherBySlug(slug: string) {
   const encoded = encodeURIComponent(slug)
   const customQuery = `filters[slug][$eq]=${encoded}&${DEFAULT_POPULATE_QUERY}`;
   const data = await fetchStrapiData('teachers', customQuery);
+  return data[0] || null; // Mengembalikan objek artikel pertama atau null
+}
+
+// fungsi khusus untuk mengambil data videos
+export async function getVideos() {
+  const response = await fetchStrapiData('videos');  
+  return response;
+}
+
+// Fungsi khusus untuk mengambil video tunggal berdasarkan slug
+export async function getVideoBySlug(slug: string) {
+  const encoded = encodeURIComponent(slug)
+  const customQuery = `filters[slug][$eq]=${encoded}&${DEFAULT_POPULATE_QUERY}`;
+  const data = await fetchStrapiData('videos', customQuery);
   return data[0] || null; // Mengembalikan objek artikel pertama atau null
 }
 

@@ -1,7 +1,7 @@
 ---
 // pages/info/news.astro
 import ListLayout from '@/layouts/ListLayout.astro';
-import BlogCard from '@/components/BlogCard.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
 
 // Panggilan API terjadi di Server-Side
 const url = new URL('/api/listBlog.json', Astro.url);
@@ -48,15 +48,7 @@ const preparedArticles = (reversedArticles || []).map((article: any) => {
   emptyStateTitle="Belum ada artikel"
   emptyStateDescription="Artikel akan muncul di sini setelah dipublikasikan"
 >
-  {/* Optional: Tombol Action di Header */}
-  <a 
-    slot="actions" 
-    href="/admin/articles/new"
-    class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-  >
-    + Tulis Artikel
-  </a>
-
+  
   {/* Content - Langsung map ke BlogCard, ListLayout yang handle grid */}
   {preparedArticles.map((article) => (
     <BlogCard
