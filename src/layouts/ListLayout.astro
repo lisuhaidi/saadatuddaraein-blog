@@ -89,42 +89,6 @@ const gridCols = {
   </div>
 </Layout>
 
-<script>
-  // Simple client-side search functionality
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const contentGrid = document.getElementById('content-grid');
-  const emptyState = document.getElementById('empty-state');
-
-  if (searchInput && contentGrid) {
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-      const items = contentGrid.children;
-      let visibleCount = 0;
-
-      Array.from(items).forEach((item) => {
-        const text = item.textContent?.toLowerCase() || '';
-        if (text.includes(searchTerm)) {
-          (item as HTMLElement).style.display = '';
-          visibleCount++;
-        } else {
-          (item as HTMLElement).style.display = 'none';
-        }
-      });
-
-      // Toggle empty state
-      if (emptyState) {
-        if (visibleCount === 0 && searchTerm !== '') {
-          contentGrid.classList.add('hidden');
-          emptyState.classList.remove('hidden');
-        } else {
-          contentGrid.classList.remove('hidden');
-          emptyState.classList.add('hidden');
-        }
-      }
-    });
-  }
-</script>
-
 <style>
   /* Smooth transitions */
   #content-grid > * {

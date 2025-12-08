@@ -2,8 +2,9 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ArrowUp } from "lucide-react";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
-export default function SchoolFooter({ description, telephone, email, address }: { title: string; description: string; telephone: string; email: string; address: string }) {
+export default function SchoolFooter({ description, telephone, email, address }: {description: string; telephone: string; email: string; address: string }) {
   return (
     <footer className="w-full border-t bg-background mt-12">
       <div className="max-w-7xl mx-auto px-6 py-10">
@@ -56,15 +57,18 @@ export default function SchoolFooter({ description, telephone, email, address }:
             © {new Date().getFullYear()} Sekolah Ku. Semua hak cipta dilindungi.
           </p>
 
-          {/* Back to top */}
-          <Button
-            variant="secondary"
-            className="flex items-center gap-2"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <ArrowUp className="w-4 h-4" />
-            Kembali ke Atas
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            {/* Back to top */}
+            <Button
+              variant="secondary"
+              className="flex items-center gap-2"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <ArrowUp className="w-4 h-4" />
+              Kembali ke Atas
+            </Button>
+          </div>
         </div>
       </div>
     </footer>

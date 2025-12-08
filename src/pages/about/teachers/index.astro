@@ -1,0 +1,30 @@
+---
+// src/pages/about/teachers/index.astro
+import ListLayout from "@/layouts/ListLayout.astro";
+import TeacherCard from "@/components/about/TeacherCard.astro";
+
+// This is a workaround for Astro's limitation with importing interfaces from .tsx files in .astro files.
+interface Teacher {
+  id: number;
+  name: string;
+  slug: string;
+  imageUrl: string;
+  position: string;
+  description: string;
+  socialMedia: string | null;
+  email: string | null;
+}
+
+const response = await fetch(Astro.url.origin + '/api/teachers.json');
+const teachers: Teacher[] = await response.json();
+---
+
+<ListLayout
+  title="Staf Pengajar"
+  description="Tim pengajar dan pengurus yang berpengalaman dan berdedikasi tinggi dalam membimbing para santri menjadi generasi yang berilmu dan berakhlak mulia."
+  columns={4}
+>
+  {teachers.map((teacher) => (
+    <TeacherCard teacher={teacher} />
+  ))}
+</ListLayout>

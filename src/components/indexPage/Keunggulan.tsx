@@ -19,8 +19,6 @@ const advantages = [
   },
 ];
 
-
-
 export default function KeunggulanPondok() {
   return (
     <section className="w-full py-4 md:py-2 bg-secondary">

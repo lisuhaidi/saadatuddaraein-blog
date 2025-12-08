@@ -1,74 +1,29 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
+import hero from "@/data/hero.json"; 
+
+// Data gambar hero ada di src/data/hero.json
+//ganti gambar dengan link gambar di imgur
+
 
 type Props = {
   title?: string;
   slogan?: string;
 };
 
-// Client-side hero slider. Fetches cached data from /api/hero.json
+// Client-side hero slider.
 export default function HeroSlider({ title, slogan }: Props) {
   const [index, setIndex] = useState(0);
-  const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let mounted = true;
-
-    async function load() {
-      try {
-        setLoading(true);
-        const res = await axios.get("/api/hero.json");
-        const payload = res?.data ?? null;
-
-        // Flexible extraction to support different shapes returned by the API
-        let items: any[] = [];
-        if (Array.isArray(payload)) items = payload as any[];
-        else if (Array.isArray(payload.data)) items = payload.data as any[];
-        else if (Array.isArray((payload as any).images)) items = (payload as any).images;
-        else if (payload?.data?.data) items = payload.data.data;
-
-        const urls = items
-          .map((it: any) => {
-            if (!it) return null;
-            if (typeof it === "string") return it;
-            return (
-              it.url || it.src || it.attributes?.url || it.attributes?.src || it?.image?.url || it?.image?.data?.attributes?.url || null
-            );
-          })
-          .filter(Boolean) as string[];
-
-        if (mounted) setImages(urls.length ? urls : ["/placeholder-hero.jpg"]);
-      } catch (err) {
-        console.error("[HeroSlider] failed to load /api/hero.json", err);
-        if (mounted) setImages(["/placeholder-hero.jpg"]);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    }
-
-    load();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  const images = hero.map((image) => image.src);
 
   useEffect(() => {
     if (!images.length) return;
     const id = setInterval(() => setIndex((p) => (p + 1) % images.length), 5000);
     return () => clearInterval(id);
-  }, [images]);
+  }, [images.length]);
 
   return (
     <div className="relative w-full h-[70vh] overflow-hidden shadow-xl">
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <div className="animate-pulse w-48 h-48 rounded bg-gray-300" />
-        </div>
-      )}
-
       <div className="absolute inset-0">
         {images.map((src, i) => (
           <img

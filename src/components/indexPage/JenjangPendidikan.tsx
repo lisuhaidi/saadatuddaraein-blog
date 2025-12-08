@@ -8,30 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Button } from "../ui/button";
-
-const educationData = [
-  {
-    title: "Madrasah Tsanawiyah",
-    description: "Pendidikan setingkat SMP dengan kurikulum agama dan umum yang seimbang.",
-    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/AVL1eMw9Gqi4jnG5/rkb.jpeg1714962854-mk3qQbZZvDcrr6Wk.jpeg",
-  },
-  {
-    title: "Madrasah Aliyah",
-    description: "Pendidikan setingkat SMA yang menekankan kemampuan akademik dan keislaman.",
-    img: "https://manbuleleng.sch.id/assets/images/about/school-potrait.png",
-  },
-  {
-    title: "Rumah Tahfiz",
-    description: "Program penghafalan Al-Qur'an dengan metode intensif dan pembinaan akhlak.",
-    img: "https://manbuleleng.sch.id/assets/images/about/school-potrait.png",
-  },
-  {
-    title: "TPQ",
-    description: "Pendidikan dasar Al-Qur'an untuk anak usia dini hingga remaja.",
-    img: "https://manbuleleng.sch.id/assets/images/about/school-potrait.png",
-  },
-];
+import educationData from "@/data/jenjang.json";
 
 export default function EducationSection() {
   return (

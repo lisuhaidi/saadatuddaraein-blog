@@ -2,11 +2,8 @@
 import '../styles/global.css';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
-import { getAbout } from '@/lib/strapi';
 
-const url = new URL('/api/about.json', Astro.url);
-const dataAbout = await fetch(url).then(r => r.json());
-
+import about from '@/data/about.json'
 ---
 
 <!doctype html>
@@ -18,13 +15,34 @@ const dataAbout = await fetch(url).then(r => r.json());
 		  <link rel="stylesheet" href="/transition.css" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
+		<script is:inline>
+			// This script is executed before Astro components hydration
+			const theme = (() => {
+			  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			  }
+			  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				return 'dark';
+			  }
+			  return 'light';
+			})();
+		  
+			if (theme === 'light') {
+			  document.documentElement.classList.remove('dark');
+			} else {
+			  document.documentElement.classList.add('dark');
+			}
+			// Whenever the user explicitly chooses to respect the OS preference,
+			// store that choice in localStorage so that it persists.
+			localStorage.setItem('theme', theme);
+		  </script>
 	</head>
 	<body>
-		<Navbar title={dataAbout?.title || 'Saadatuddaraein'} client:load />
+		<Navbar title={about?.title || 'Saadatuddaraein'} client:load />
 		<div class="flex min-h-[calc(100vh-10rem)] items-center justify-center">
    			<slot />
 		</div>
-		<Footer description={dataAbout?.description} telephone={dataAbout?.telephone} email={dataAbout?.email} address={dataAbout?.address} client:load/>
+		<Footer description={about?.description} telephone={about?.telephone} email={about?.email} address={about?.address} client:load/>
 
 	</body>
 </html>

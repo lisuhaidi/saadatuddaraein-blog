@@ -1,0 +1,75 @@
+---
+import { Card } from '../ui/card';
+import { Play } from "lucide-react";
+
+export interface Props {
+  video: {
+    id: number | string;
+    videoUrl: string;
+    thumbnail: string;
+    title: string;
+    description: string;
+    duration: string;
+    date: string;
+  };
+}
+
+const { video } = Astro.props;
+---
+
+<a
+  href={video.videoUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block h-full"
+>
+  <Card
+    className="h-full overflow-hidden border shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col"
+  >
+    <!-- Thumbnail with Play Button -->
+    <div class="relative aspect-video overflow-hidden bg-muted">
+      <img
+        src={video.thumbnail}
+        alt={video.title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+
+      <!-- Overlay -->
+      <div
+        class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"
+      >
+      </div>
+
+      <!-- Play Button -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div
+          class="w-16 h-16 rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center group-hover:scale-110 transition-all shadow-lg"
+        >
+          <Play className="w-7 h-7 text-red-600 fill-red-600 ml-1" />
+        </div>
+      </div>
+
+      <!-- Duration Badge -->
+      <div
+        class="absolute bottom-2 right-2 px-2 py-1 bg-black/80 text-white text-xs font-medium rounded"
+      >
+        {video.duration}
+      </div>
+    </div>
+
+    <!-- Video Info -->
+    <div class="p-4 flex flex-col flex-grow">
+      <h3
+        class="font-semibold text-base mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+      >
+        {video.title}
+      </h3>
+      <p class="text-sm text-muted-foreground line-clamp-2 mb-2 flex-grow">
+        {video.description}
+      </p>
+      <p class="text-xs text-muted-foreground mt-auto">
+        {video.date}
+      </p>
+    </div>
+  </Card>
+</a>

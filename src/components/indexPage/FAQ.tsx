@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Spinner } from "../ui/spinner";
-import { Skeleton } from "../ui/skeleton";
+import faqs from "@/data/faq.json";
+
 
 interface Faq {
   id: number;
@@ -17,86 +16,6 @@ interface Faq {
 }
 
 export default function FAQSection() {
-  const [faqs, setFaqs] = useState<Faq[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    async function fetchFaqs() {
-      try {
-        const response = await axios.get("/api/faq.json");
-        const payload = response?.data ?? null;
-
-        // Support multiple shapes: array, { data: [...] }, { faqs: [...] }
-        let items: any[] = [];
-        if (Array.isArray(payload)) items = payload;
-        else if (Array.isArray(payload?.data)) items = payload.data;
-        else if (Array.isArray((payload as any)?.faqs)) items = (payload as any).faqs;
-        else if (payload?.data?.data) items = payload.data.data;
-
-        const normalized: Faq[] = (items || [])
-          .map((it: any, idx: number) => {
-            if (!it) return null;
-            if (it.attributes) {
-              const a = it.attributes;
-              return {
-                id: it.id ?? idx,
-                question: a.question ?? a.title ?? "",
-                answer: a.answer ?? a.body ?? "",
-                no: a.no ?? idx + 1,
-              } as Faq;
-            }
-
-            return {
-              id: it.id ?? idx,
-              question: it.question ?? it.title ?? "",
-              answer: it.answer ?? it.body ?? "",
-              no: it.no ?? idx + 1,
-            } as Faq;
-          })
-          .filter(Boolean) as Faq[];
-
-        if (mounted) setFaqs(normalized);
-      } catch (err) {
-        console.error("[FAQ] failed to load /api/faq.json", err);
-        if (mounted) setError(err instanceof Error ? err.message : String(err));
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    }
-
-    fetchFaqs();
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  if (loading) {
-  return (
-    <section className="w-full py-16 bg-background flex flex-col items-center justify-center space-y-4">
-      <Skeleton className="h-4 w-[250px]" />
-      <Skeleton className="h-4 w-[250px]" />
-      <Skeleton className="h-4 w-[250px]" />
-      <Skeleton className="h-4 w-[250px]" />
-    </section>
-  );
-}
-
-
-  if (error) {
-    return (
-        <section className="w-full py-16 bg-background flex flex-col items-center justify-center space-y-4">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
-        </section>
-
-    );
-  }
-
   return (
     <section className="w-full py-16 bg-muted/30">
       <div className="container max-w-4xl mx-auto px-6">

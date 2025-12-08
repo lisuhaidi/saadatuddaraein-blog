@@ -1,10 +1,6 @@
 ---
 import { Card, CardContent } from "@/components/ui/card";
-import { getWelcome } from "@/lib/strapi";
-
-const url = new URL('/api/welcome.json', Astro.url);
-const welcomeData = await fetch(url).then(r => r.json());
-
+import welcome from "@/data/welcome.json"
 ---
 
 <section class="w-full py-8 md:py-16">
@@ -25,7 +21,7 @@ const welcomeData = await fetch(url).then(r => r.json());
         <!-- MOBILE IMAGE -->
         <div class="md:hidden flex justify-center mb-4">
           <img
-            src={welcomeData?.urlImage || "https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"}
+            src={welcome?.imageUrl || "https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"}
             alt="Foto Pimpinan Pondok"
             class="rounded-xl shadow-xl object-cover w-full max-w-xs aspect-[3/4]"
           />
@@ -37,14 +33,14 @@ const welcomeData = await fetch(url).then(r => r.json());
         </h2>
 
         <p class="text-muted-foreground leading-relaxed text-base md:text-lg whitespace-pre-liner">
-         {welcomeData?.speech || `Assalamu’alaikum Warahmatullahi Wabarakatuh.`}
+         {welcome?.speech || `Assalamu’alaikum Warahmatullahi Wabarakatuh.`}
         </p>
 
         <!-- NAMA & JABATAN -->
         <div class="space-y-1 text-center md:text-left">
-          <p class="font-semibold text-primary text-lg">—{welcomeData?.name || 'Mijaswati'}</p>
+          <p class="font-semibold text-primary text-lg">—{welcome?.name || 'Mijaswati'}</p>
           <p class="text-sm text-muted-foreground">
-            {welcomeData?.position || 'Pimpinan Pesantren Saadatuddaraein'}
+            {welcome?.position || 'Pimpinan Pesantren Saadatuddaraein'}
           </p>
         </div>
 
@@ -54,7 +50,7 @@ const welcomeData = await fetch(url).then(r => r.json());
     <!-- DESKTOP IMAGE -->
     <div class="hidden md:flex justify-center h-full">
       <img
-        src={welcomeData?.urlImage || "https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"}
+        src={welcome?.imageUrl || "https://kol.id/blogs/images/74%20-%20Ustadzah%20Terkenal_74%20-%20Ustadzah%20Terkenal-03%20(1).png"}
         alt="Foto Pimpinan Pondok"
         class="rounded-xl shadow-xl object-cover w-full max-w-xs aspect-[3/4] hover:scale-105 transition-transform duration-500" 
       />

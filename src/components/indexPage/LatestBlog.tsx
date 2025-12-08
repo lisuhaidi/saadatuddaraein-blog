@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BlogCardSkeleton } from "../BlogCardSekeleton";
+import { BlogCardSkeleton } from "../blog/BlogCardSekeleton";
 
 
 interface Article {

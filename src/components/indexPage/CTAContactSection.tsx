@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { MessageCircle, MapPin, Phone, Mail, Clock } from "lucide-react";
+// data untuk component ini ada di src/data/about.json
 
 export default function CTAContactSection({telephone, email, address, gmapsURL}) {
   const whatsappMessage = encodeURIComponent("Assalamualaikum, saya ingin bertanya tentang pendaftaran santri baru di Saadatuddaraein");
@@ -110,7 +111,7 @@ export default function CTAContactSection({telephone, email, address, gmapsURL})
           <div className="h-full min-h-[400px]">
             <Card className="h-full overflow-hidden shadow-sm">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5755.906750537214!2d103.00407589999999!3d-0.5203593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2859f1caa75ea5%3A0x35f0703abf43f347!2sPESANTREN%20SA&#39;ADATUDDARAEIN%20SUHADA!5e1!3m2!1sid!2sid!4v1765061366958!5m2!1sid!2sid"
+                src={gmapsURL}
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: '400px' }}

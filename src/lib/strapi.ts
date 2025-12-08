@@ -61,17 +61,20 @@ export async function getArticleBySlug(slug: string) {
   return data[0] || null; // Mengembalikan objek artikel pertama atau null
 }
 
-//fungsi khusus untuk mengambil faq
-export async function getFaq() {
-  return fetchStrapiData('faqs');
+// fungsi khusus untuk mengambil data guru
+export async function getTeachers() {
+  const customQuery = 'populate=*&sort=createdAt:asc';
+  const response = await fetchStrapiData('teachers', customQuery);  
+  return response;
+
 }
 
-// fungsi khusus untuk mengambil gambar untuk hero
-export async function getHeroImage() {
-  return fetchStrapiData('heroimages');
+export async function getTeacherBySlug(slug: string) {
+  const encoded = encodeURIComponent(slug)
+  const customQuery = `filters[slug][$eq]=${encoded}&${DEFAULT_POPULATE_QUERY}`;
+  const data = await fetchStrapiData('teachers', customQuery);
+  return data[0] || null; // Mengembalikan objek artikel pertama atau null
 }
-
-
 
 
 // *****************
@@ -86,7 +89,6 @@ export async function fetchSingleCollection( {endpoint, customQuery = 'populate=
       'Content-Type': 'application/json',
     },
   });
-
   if (!response.ok) {
     // Log error status untuk debugging
     const errorText = await response.text();
@@ -103,12 +105,3 @@ export async function fetchSingleCollection( {endpoint, customQuery = 'populate=
   // Fallback for unexpected structure
   return json.data;
 }
-
-//fungsi khusus untuk mengambil about
-export async function getAbout() {
-  return fetchSingleCollection( {endpoint: 'about'} );
-}
-
-export async function getWelcome() {
-  return fetchSingleCollection( {endpoint: 'welcome'} );
-};

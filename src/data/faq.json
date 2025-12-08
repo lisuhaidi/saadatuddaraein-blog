@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "no": 1,
+    "question": "Bagaimana cara mendaftar?",
+    "answer": "Pendaftaran bisa dilakukan secara online melalui website kami atau datang langsung ke kantor pendaftaran di pondok pesantren."
+  },
+  {
+    "id": 2,
+    "no": 2,
+    "question": "Apa saja persyaratan pendaftaran?",
+    "answer": "Persyaratan umum meliputi fotokopi ijazah terakhir, pas foto, dan mengisi formulir pendaftaran. Detail lebih lanjut ada di halaman pendaftaran."
+  },
+  {
+    "id": 3,
+    "no": 3,
+    "question": "Berapa biaya pendidikannya?",
+    "answer": "Rincian biaya pendidikan dapat dilihat pada brosur kami atau dengan menghubungi bagian administrasi."
+  },
+  {
+    "id": 4,
+    "no": 4,
+    "question": "Apakah tersedia program beasiswa?",
+    "answer": "Ya, kami menyediakan beberapa program beasiswa untuk santri berprestasi dan dari keluarga kurang mampu. Informasi lebih lanjut bisa ditanyakan saat pendaftaran."
+  }
+]

@@ -1,0 +1,27 @@
+---
+import TeacherLayout from '@/layouts/TeacherLayout.astro';
+import { getTeacherBySlug } from '@/lib/strapi';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/blog');
+}
+const teacher = await getTeacherBySlug(slug);
+
+// Handle jika teacher tidak ditemukan
+if (!teacher) {
+  return Astro.redirect('/404');
+}
+---
+
+<TeacherLayout
+  name={teacher.name}
+  position={teacher.position}
+  imageUrl={teacher.imageUrl}
+  bioData={teacher.bioData}
+  titleBio={teacher.titleBio}
+  bodyBio={teacher.bodyBio}
+  socialMedia={teacher.socialMedia}
+  email={teacher.email}
+/>
