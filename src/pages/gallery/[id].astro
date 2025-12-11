@@ -1,0 +1,43 @@
+---
+import Layout from "@/layouts/Layout.astro";   
+import galleryData from '@/data/gallery.json';
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect('/gallery');
+}
+
+const item = galleryData.data.find(entr => entr.id === id);
+
+if (!item) {
+  return Astro.redirect('/404');
+} 
+---
+
+<Layout title={item.title}>
+  <main class="w-full flex flex-col min-h-screen items-center justify-center pt-8 md:pt-16 pb-16">
+    <nav class="flex items-center gap-2 text-sm text-muted-foreground pb-4 pt-22  md:pt-22">
+        <a href="/" class="hover:text-primary transition-colors">Home</a>
+        <span>/</span>
+        <a href="/about" class="hover:text-primary transition-colors">About</a>
+        <span>/</span>
+        <a href="/gallery" class="hover:text-primary transition-colors">Gallery</a>
+        <span>/</span>
+        <span class="text-foreground">{item.title}</span>
+      </nav>
+    <h1 class="text-3xl font-bold">{item.title}</h1>
+    <p class="text-muted-foreground mt-2">{item.description}</p>
+    
+    <!-- Display images -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 max-w-7xl px-4">
+      {item.url.map((imageUrl) => (
+        <img 
+          src={imageUrl} 
+          alt={item.title}
+          class="w-full h-64 object-cover rounded-lg"
+        />
+      ))}
+    </div>
+  </main>
+</Layout>

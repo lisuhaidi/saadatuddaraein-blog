@@ -1,44 +1,13 @@
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import gallery from "@/data/gallery.json";
 
-const galleryData = [
-  {
-    id: 1,
-    title: "Kegiatan Pembelajaran",
-    description: "Suasana belajar yang kondusif dan menyenangkan di kelas",
-    image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=600&fit=crop",
-    link: "/gallery/pembelajaran",
-  },
-  {
-    id: 2,
-    title: "Kegiatan Ekstrakurikuler",
-    description: "Berbagai aktivitas positif untuk mengembangkan bakat siswa",
-    image: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800&h=600&fit=crop",
-    link: "/gallery/ekstrakurikuler",
-  },
-  {
-    id: 3,
-    title: "Acara Tahunan",
-    description: "Momen spesial dalam perayaan hari besar di sekolah",
-    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=600&fit=crop",
-    link: "/gallery/acara",
-  },
-  {
-    id: 4,
-    title: "Fasilitas Sekolah",
-    description: "Sarana dan prasarana modern untuk mendukung pembelajaran",
-    image: "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop",
-    link: "/gallery/fasilitas",
-  },
-  {
-    id: 5,
-    title: "Prestasi Siswa",
-    description: "Dokumentasi pencapaian dan penghargaan siswa",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop",
-    link: "/gallery/prestasi",
-  },
-];
+
+const galleryData = gallery.data;
+
+console.log(galleryData);
+
 
 export default function GalleryCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -101,13 +70,13 @@ export default function GalleryCarousel() {
             {visibleSlides.map((item, idx) => (
               <a
                 key={`${item.id}-${idx}`}
-                href={item.link}
+                href={`/gallery/${item.id}`}
                 className="block group"
               >
                 <Card className="relative h-96 overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer">
                   {/* Image with overlay */}
                   <img
-                    src={item.image}
+                    src={item.url[0]}
                     alt={item.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -118,7 +87,7 @@ export default function GalleryCarousel() {
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-sm text-white/90 mb-4">{item.description}</p>
+                    <p className="text-sm text-white/90 mb-4 clamp-3-lines">{item.description}</p>
                     <div className="flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all">
                       <span>Read more</span>
                       <ArrowRight className="w-4 h-4" />
@@ -132,12 +101,12 @@ export default function GalleryCarousel() {
           {/* Mobile View - 1 card */}
           <div className="md:hidden mb-8">
             <a
-              href={galleryData[currentIndex].link}
+              href={`/gallery/${galleryData[currentIndex].id}`}
               className="block group"
             >
               <Card className="relative h-96 overflow-hidden rounded-2xl shadow-lg">
                 <img
-                  src={galleryData[currentIndex].image}
+                  src={galleryData[currentIndex].url[0]}
                   alt={galleryData[currentIndex].title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -146,7 +115,7 @@ export default function GalleryCarousel() {
                 
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl font-bold mb-2">{galleryData[currentIndex].title}</h3>
-                  <p className="text-sm text-white/90 mb-4">{galleryData[currentIndex].description}</p>
+                  <p className="text-sm text-white/90 mb-4 clamp-3-lines">{galleryData[currentIndex].description}</p>
                   <div className="flex items-center gap-2 text-sm font-medium">
                     <span>Read more</span>
                     <ArrowRight className="w-4 h-4" />
@@ -189,6 +158,16 @@ export default function GalleryCarousel() {
             />
           ))}
         </div>
+
+        <div className="flex justify-center mt-10">
+              <a
+                href="/gallery"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+              >
+                Lihat Galeri
+                <ArrowRight className="w-4 h-4" />
+              </a>
+          </div>
       </div>
     </section>
   );

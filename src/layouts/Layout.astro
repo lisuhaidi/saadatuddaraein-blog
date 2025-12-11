@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import { ViewTransitions } from 'astro:transitions';
 
 import about from '@/data/about.json'
 ---
@@ -11,34 +12,42 @@ import about from '@/data/about.json'
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		  <link rel="stylesheet" href="/transition.css" />
+		<link rel="icon" type="image/svg+xml" href="/floadavicon.svg" />
+		<ViewTransitions />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 		<script is:inline>
-			// This script is executed before Astro components hydration
-			const theme = (() => {
-			  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-				return localStorage.getItem('theme');
-			  }
-			  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				return 'dark';
-			  }
-			  return 'light';
-			})();
-		  
-			if (theme === 'light') {
-			  document.documentElement.classList.remove('dark');
-			} else {
-			  document.documentElement.classList.add('dark');
+			/*
+				1. Ambil theme dari localStorage jika ada.
+				2. Kalau belum ada, pakai preferensi OS.
+				3. Terapkan class "dark" SEBELUM render untuk menghindari flicker.
+				4. Terapkan lagi setelah navigasi SPA (astro:after-swap).
+			*/
+
+			function applyTheme() {
+				const saved = localStorage.getItem('theme');
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+				const theme = saved || (prefersDark ? 'dark' : 'light');
+
+				document.documentElement.classList.toggle('dark', theme === 'dark');
+
+				// hanya set jika belum ada (biar tidak menimpa preferensi user)
+				if (!saved) localStorage.setItem('theme', theme);
 			}
-			// Whenever the user explicitly chooses to respect the OS preference,
-			// store that choice in localStorage so that it persists.
-			localStorage.setItem('theme', theme);
-		  </script>
+
+			// Jalankan sebelum halaman dirender (initial load)
+			applyTheme();
+
+			// Jalankan ulang SETIAP ada view transition (navigasi)
+			document.addEventListener('astro:after-swap', () => {
+				applyTheme();
+			});
+		</script>
+
 	</head>
 	<body>
-		<Navbar title={about?.title || 'Saadatuddaraein'} client:load />
+		<Navbar title={about?.title || 'Saadatuddaraein'} client:load transition:persist/>
 		<div class="flex min-h-[calc(100vh-10rem)] items-center justify-center">
    			<slot />
 		</div>

@@ -54,7 +54,7 @@ export default function EducationSection() {
             {educationData.map((edu) => (
          <Card
             key={edu.title}
-            className="relative flex-shrink-0 w-[70vw] max-w-xs shadow-lg border bg-card overflow-hidden h-[70vw]"
+            className="relative flex-shrink-0 w-[70vw] max-w-xs shadow-lg border bg-card overflow-hidden h-96"
           >
             {/* IMAGE MENUTUP BAGIAN ATAS CARD */}
             <img

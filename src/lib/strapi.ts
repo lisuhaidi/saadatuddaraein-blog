@@ -82,6 +82,12 @@ export async function getVideos() {
   return response;
 }
 
+export async function getCategories() {
+  const response = await fetchStrapiData('categories');  
+  return response;
+}
+
+
 // Fungsi khusus untuk mengambil video tunggal berdasarkan slug
 export async function getVideoBySlug(slug: string) {
   const encoded = encodeURIComponent(slug)

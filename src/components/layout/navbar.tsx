@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Menu, ChevronDown } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,8 +17,27 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
+interface Category {
+  id: number;
+  attributes: {
+    name: string;
+    slug: string;
+  };
+}
+
 export default function Navbar({ title }: { title: string }) {
   const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    axios.get<{ data: Category[] }>('/api/listCategories.json')
+      .then(response => {
+        setCategories(response.data.reverse());
+      })
+      .catch(error => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full border-b bg-background">
@@ -33,8 +52,8 @@ export default function Navbar({ title }: { title: string }) {
           <a href="/" className="hover:text-primary transition">Beranda</a>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-1 hover:text-primary transition">
+            <DropdownMenuTrigger  asChild>
+              <button className="flex items-center gap-1 hover:text-primary transition" >
                 Informasi
                 <ChevronDown className="size-4 transition duration-200 data-[state=open]:rotate-180" />
               </button>
@@ -42,16 +61,14 @@ export default function Navbar({ title }: { title: string }) {
             <DropdownMenuContent align="start" className="w-48">
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                  <a href="/info/announcements">Pengumuman</a>
+                  <a href="/blog">Semua</a>
                 </DropdownMenuItem>
-
-                <DropdownMenuItem asChild>
-                  <a href="/info/news">Berita</a>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem asChild>
-                  <a href="/info/galleries">Galeri</a>
-                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                {categories.map((category) => (
+                  <DropdownMenuItem key={category.id} asChild>
+                    <a href={`/blog?category=${category.slug}`}>{category.name}</a>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -97,7 +114,8 @@ export default function Navbar({ title }: { title: string }) {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-
+          <a href="/gallery" className="hover:text-primary transition">Galeri</a>
+          <a href="/video" className="hover:text-primary transition">Video</a>
           <a href="/about" className="hover:text-primary transition">Tentang</a>
           <a href="/contact" className="hover:text-primary transition">Kontak</a>
 
@@ -133,37 +151,33 @@ export default function Navbar({ title }: { title: string }) {
               {/* INFORMASI - ACCORDION STYLE */}
               <MobileDropdown label="Informasi">
                 <a
-                  href="/info/announcements"
+                  href="/blog"
                   className="block pl-4 py-2 text-base hover:text-primary"
                   onClick={() => setOpen(false)}
                 >
-                  Pengumuman
+                  Semua
                 </a>
-                <a
-                  href="/info/news"
-                  className="block pl-4 py-2 text-base hover:text-primary"
-                  onClick={() => setOpen(false)}
-                >
-                  Berita
-                </a>
-                <a
-                  href="/info/galleries"
-                  className="block pl-4 py-2 text-base hover:text-primary"
-                  onClick={() => setOpen(false)}
-                >
-                  Galeri
-                </a>
+                {categories.map((category) => (
+                  <a
+                    key={category.id}
+                    href={`/blog?category=${category.slug}`}
+                    className="block pl-4 py-2 text-base hover:text-primary"
+                    onClick={() => setOpen(false)}
+                  >
+                    {category.name}
+                  </a>
+                ))}
               </MobileDropdown>
 
               <MobileDropdown label="Edukasi">
                 <a
                   href="/academic/teachers"
-                  className="block pl-4 py-2 text-base hover:text-primary"
+                  className="block pl-4 py-2 text-base"
                   onClick={() => setOpen(false)}
                 >
                   Ustadz/ah
                 </a>
-                <MobileDropdown label="Kurikulum" className="block pl-4 py-2 text-base hover:text-primary">
+                <MobileDropdown label="Kurikulum" className="block pl-4 py-2 text-base">
                   <a
                     href="/academic/tsanawiyah-school"
                     className="block pl-4 py-2 text-base hover:text-primary"
@@ -201,8 +215,9 @@ export default function Navbar({ title }: { title: string }) {
                   Ekstrakurikuler
                 </a>
               </MobileDropdown>
-
               {/* Biasa */}
+              <a href="/gallery" className="hover:text-primary transition" onClick={() => setOpen(false)}>Galeri</a>
+              <a href="/video" className="hover:text-primary transition" onClick={() => setOpen(false)}>Video</a>
               <a
                 href="/about"
                 className="hover:text-primary transition"

@@ -79,17 +79,6 @@ const formatDate = (dateString: string) => {
       <div class="flex items-center justify-between border-t border-border pt-4">
         {/* Author */}
         <div class="flex items-center gap-3">
-          {author.avatar ? (
-            <img 
-              src={author.avatar} 
-              alt={author.name}
-              class="h-8 w-8 rounded-full object-cover ring-2 ring-border"
-            />
-          ) : (
-            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
-              {author.name.charAt(0).toUpperCase()}
-            </div>
-          )}
           <span class="text-sm font-medium text-card-foreground">
             {author.name}
           </span>
