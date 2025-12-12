@@ -1,0 +1,227 @@
+---
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout>
+  <div class="pt-16">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+      <div class="relative h-96 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg group my-4 mx-2 md:my-8 md:mx-2">
+        <img 
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+          src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+          alt="Madrasah Aliyah"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <div class="text-center px-6">
+            <h1 class="text-white text-5xl md:text-6xl font-bold mb-3">
+              Madrasah Aliyah
+            </h1>
+            <div class="h-1 w-24 bg-primary mx-auto mb-4"></div>
+            <p class="text-white/90 text-xl md:text-2xl">Sa'adatuddaraein</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mx-auto px-4 pb-12 md:pb-20">
+      <div class="space-y-10 md:space-y-12">
+
+      <!-- Deskripsi Section -->
+      <section class="group animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div class="bg-gradient-to-br from-card to-card/50 border border-border rounded-2xl p-8 md:p-12 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-6">
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground">Deskripsi Program</h2>
+              </div>
+            </div>
+            <p class="text-lg text-muted-foreground leading-relaxed max-w-3xl">
+              Program Madrasah Aliyah (MA) di Sa'adatuddaraein dirancang untuk memberikan pendidikan menengah atas yang berkualitas dengan memadukan kurikulum nasional dan pendidikan agama Islam secara mendalam. Siswa akan dipersiapkan untuk melanjutkan ke jenjang perguruan tinggi baik di dalam maupun luar negeri, dengan bekal ilmu dunia dan akhirat yang seimbang.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mata Pelajaran Section -->
+      <section class="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+        <div class="bg-gradient-to-br from-card to-card/50 border border-border rounded-2xl p-8 md:p-12 shadow-sm hover:shadow-lg overflow-hidden relative">
+          <div class="absolute top-0 left-0 w-40 h-40 bg-primary/5 rounded-full -ml-20 -mt-20 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-10">
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground">Mata Pelajaran Unggulan</h2>
+                <p class="text-sm text-muted-foreground mt-2">Kurikulum yang dirancang untuk kesuksesan akademik</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              <!-- Pelajaran Agama -->
+              <div class="group/card animate-in fade-in slide-in-from-left-4 duration-700">
+                <div class="bg-gradient-to-br from-background to-background/50 border border-border rounded-xl p-7 h-full shadow-sm hover:border-primary/50 hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+                  
+                  <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6">
+                      <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/card:bg-primary/20 transition-colors duration-300">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 class="font-bold text-xl text-foreground">Pelajaran Agama</h3>
+                        <p class="text-xs text-muted-foreground mt-1">Pendidikan Islam Komprehensif</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-3">
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Tafsir dan Ilmu Tafsir</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Hadits dan Ilmu Hadits</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Fiqih dan Ushul Fiqih</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Bahasa Arab (Nahwu, Sharaf, Balaghah)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pelajaran Umum -->
+              <div class="group/card animate-in fade-in slide-in-from-right-4 duration-700">
+                <div class="bg-gradient-to-br from-background to-background/50 border border-border rounded-xl p-7 h-full shadow-sm hover:border-primary/50 hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+                  
+                  <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6">
+                      <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/card:bg-primary/20 transition-colors duration-300">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 class="font-bold text-xl text-foreground">Pelajaran Umum</h3>
+                        <p class="text-xs text-muted-foreground mt-1">Kurikulum Nasional Terpadu</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-3">
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Matematika</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Sains (Fisika, Kimia, Biologi)</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Bahasa Inggris</span>
+                      </li>
+                      <li class="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors duration-200">
+                        <span class="text-primary font-bold mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-sm">Sejarah Indonesia dan Dunia</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rincian Biaya Section -->
+      <section class="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+        <div class="bg-gradient-to-br from-card to-card/50 border border-border rounded-2xl p-8 md:p-12 shadow-sm hover:shadow-lg overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -mr-20 -mt-20 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-10">
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground">Rincian Biaya</h2>
+                <p class="text-sm text-muted-foreground mt-2">Transparansi biaya pendidikan</p>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <!-- Table Container -->
+              <div class="overflow-hidden rounded-xl border border-border shadow-sm">
+                <table class="min-w-full divide-y divide-border">
+                  <thead>
+                    <tr class="bg-gradient-to-r from-muted to-muted/50 hover:bg-muted/60 transition-colors duration-200">
+                      <th class="py-4 px-6 text-left">
+                        <span class="text-sm font-semibold text-foreground uppercase tracking-wider">Jenis Biaya</span>
+                      </th>
+                      <th class="py-4 px-6 text-left">
+                        <span class="text-sm font-semibold text-foreground uppercase tracking-wider">Jumlah</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border bg-card">
+                    <tr class="hover:bg-muted/40 transition-colors duration-200 group/row">
+                      <td class="py-5 px-6">
+                        <span class="text-foreground font-medium group-hover/row:text-primary transition-colors duration-200">Uang Pangkal</span>
+                      </td>
+                      <td class="py-5 px-6">
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-200">
+                          Hubungi kami
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-muted/40 transition-colors duration-200 group/row">
+                      <td class="py-5 px-6">
+                        <span class="text-foreground font-medium group-hover/row:text-primary transition-colors duration-200">SPP per bulan</span>
+                      </td>
+                      <td class="py-5 px-6">
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-200">
+                          Hubungi kami
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-muted/40 transition-colors duration-200 group/row">
+                      <td class="py-5 px-6">
+                        <span class="text-foreground font-medium group-hover/row:text-primary transition-colors duration-200">Biaya Kegiatan Tahunan</span>
+                      </td>
+                      <td class="py-5 px-6">
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-200">
+                          Hubungi kami
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Info Box -->
+              <div class="relative overflow-hidden rounded-xl border border-primary/20 bg-primary/5 p-5 before:absolute before:top-0 before:left-0 before:h-full before:w-1 before:bg-primary">
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 mt-0.5">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm text-muted-foreground">
+                      Untuk informasi lebih rinci mengenai biaya pendaftaran dan rincian lainnya, klik link berikut: <a href="/about/tuition" class="text-primary hover:underline">Rincian Biaya</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</Layout>

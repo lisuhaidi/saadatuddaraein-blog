@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout title="Rincian Biaya Pendidikan">
+  <section class="bg-background py-20 pt-26 px-4 md:px-8">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4"
+        >
+          Biaya Pendidikan
+        </h1>
+        <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+          Berikut adalah rincian lengkap mengenai biaya pendaftaran dan biaya
+          bulanan di pondok pesantren kami. Untuk kemudahan, Anda juga dapat
+          mengunduh dokumen ini.
+        </p>
+      </div>
+
+      <div
+        class="border rounded-xl overflow-hidden shadow-lg bg-card max-w-4xl mx-auto"
+      >
+        <iframe
+          src="/pdf/tuition.pdf"
+          title="Rincian Biaya Pendidikan Pondok Pesantren"
+          class="w-full aspect-[1/1.414]"
+          style="border: none;"
+        >
+        </iframe>
+      </div>
+
+      <div class="text-center mt-8">
+        <a
+          href="/pdf/tuition.pdf"
+          download="rincian-biaya-pesantren.pdf"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all"
+        >
+          Unduh PDF
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

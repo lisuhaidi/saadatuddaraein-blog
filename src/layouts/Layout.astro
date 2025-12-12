@@ -4,6 +4,9 @@ import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import { ViewTransitions } from 'astro:transitions';
 
+import LoadingIndicator from "astro-loading-indicator/component"
+
+
 import about from '@/data/about.json'
 ---
 
@@ -14,6 +17,7 @@ import about from '@/data/about.json'
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/floadavicon.svg" />
 		<ViewTransitions />
+		<LoadingIndicator color='#5EA500' threshold={false}/>
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 		<script is:inline>

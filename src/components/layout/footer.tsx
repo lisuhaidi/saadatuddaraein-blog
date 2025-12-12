@@ -32,7 +32,7 @@ export default function SchoolFooter({ description, telephone, email, address }:
           <div>
             <h3 className="text-lg font-semibold">Akademik</h3>
             <ul className="space-y-2 mt-3 text-sm">
-              <li><a href="/academic/curriculum" className="hover:text-primary transition">Kurikulum</a></li>
+              <li><a href="/academic/stage" className="hover:text-primary transition">Jenjang Pendidikan</a></li>
               <li><a href="/about/teachers" className="hover:text-primary transition">Daftar Guru</a></li>
               <li><a href="/academic/extracurricular" className="hover:text-primary transition">Ekstrakurikuler</a></li>
             </ul>

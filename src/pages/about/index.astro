@@ -1,14 +1,30 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import AboutTabs from '@/components/about/AboutTabs';
+import { Button } from '@/components/ui/button';
 ---
 
-<Layout>
-  <div class="prose prose-lg max-w-4xl mx-auto py-16">
-    <h1>About Us</h1>
-    <p>Welcome to our blog! We are passionate about sharing knowledge, insights, and stories on a variety of topics. Our mission is to provide valuable content that informs, inspires, and engages our readers.</p>
-    <h2>Our Team</h2>
-    <p>Our team consists of experienced writers, editors, and subject matter experts who are dedicated to delivering high-quality articles. We believe in the power of storytelling and strive to create content that resonates with our audience.</p>
-    <h2>Contact Us</h2>
-    <p>If you have any questions, suggestions, or would like to contribute to our blog, please feel free to reach out to us. We would love to hear from you!</p>
-  </div>
+<Layout title="About Us - Saadatuddaraein">
+  <main class="min-h-screen bg-background">
+    <section class="py-16 px-4 pt-24">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+          <h1 class="text-3xl font-extrabold tracking-tight lg:text-5xl">
+            Tentang Kami
+          </h1>
+          <p class="mt-12 text-muted-foreground text-lg max-w-4xl mx-auto leading-relaxed">
+            Perjalanan kami menyoroti kekuatan kolaborasi dan tekad. Bersama-sama, kami telah mengatasi rintangan, bersukacita dalam kesuksesan kami, dan menyusun kisah kemajuan dan pencapaian.
+          </p>
+          <a href="/about/brochure" >
+          <Button className='mt-6'>
+            Lihat Brosur
+          </Button>
+          </a>
+        </div>
+        <!-- Tabs Component -->
+        <AboutTabs client:load />
+      </div>
+    </section>
+  </main>
 </Layout>

@@ -1,21 +1,25 @@
 [
   {
     "title": "Madrasah Tsanawiyah",
+    "slug": "mts",
     "description": "Pendidikan setingkat SMP dengan kurikulum agama dan umum yang seimbang.",
     "img": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/AVL1eMw9Gqi4jnG5/rkb.jpeg1714962854-mk3qQbZZvDcrr6Wk.jpeg"
   },
   {
     "title": "Madrasah Aliyah",
+    "slug": "ma",
     "description": "Pendidikan setingkat SMA yang menekankan kemampuan akademik dan keislaman.",
     "img": "https://manbuleleng.sch.id/assets/images/about/school-potrait.png"
   },
   {
     "title": "Rumah Tahfiz",
+    "slug": "tahfiz",
     "description": "Program penghafalan Al-Qur'an dengan metode intensif dan pembinaan akhlak.",
     "img": "https://manbuleleng.sch.id/assets/images/about/school-potrait.png"
   },
   {
     "title": "TPQ",
+    "slug": "tpq",
     "description": "Pendidikan dasar Al-Qur'an untuk anak usia dini hingga remaja.",
     "img": "https://manbuleleng.sch.id/assets/images/about/school-potrait.png"
   }

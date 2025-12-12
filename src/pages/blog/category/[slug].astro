@@ -1,0 +1,64 @@
+---
+import BlogCard from "@/components/blog/BlogCard.astro";
+import ListLayout from "@/layouts/ListLayout.astro";
+import { getArticles, getArticlesByCategorySlug } from "@/lib/strapi";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const articles = await getArticles();
+  const categories = articles.map((article) => article.category);
+  
+  // Create a unique set of categories
+  const uniqueCategories = categories.reduce((acc, current) => {
+    if (current && !acc.find((item) => item.slug === current.slug)) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+
+  const paths = uniqueCategories.map((category) => {
+    return {
+      params: {
+        slug: category.slug,
+      },
+    };
+  });
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+
+const articles = await getArticlesByCategorySlug(slug);
+
+const categoryName = articles[0]?.category?.name || slug;
+const title = `Kategori: ${categoryName}`;
+---
+
+<ListLayout title={title}
+  description={`Artikel dalam kategori ${categoryName}`}
+  subtitle={`${articles.length} artikel tersedia`} 
+  columns={3}
+  showSearch={true}
+  pageTitle="Berita & Artikel"
+  emptyStateTitle="Belum ada artikel"
+  emptyStateDescription="Artikel akan muncul di sini setelah dipublikasikan"
+>
+    {
+      articles.map((article) => {
+        return (
+          <BlogCard
+            cover={article.coverlink}
+            title={article.title}
+            description={article.description}
+            category={article.category?.name}
+            publishedAt={article.publishedAt}
+            author={{
+              name: article.author?.name,
+              avatar: article.author?.avatar?.url,
+            }}
+            slug={article.slug}
+          />
+        );
+      })
+    }
+</ListLayout>

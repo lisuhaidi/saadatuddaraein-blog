@@ -61,6 +61,12 @@ export async function getArticleBySlug(slug: string) {
   return data[0] || null; // Mengembalikan objek artikel pertama atau null
 }
 
+export async function getArticlesByCategorySlug(categorySlug: string) {
+  const encodedSlug = encodeURIComponent(categorySlug);
+  const customQuery = `filters[category][slug][$eq]=${encodedSlug}&populate[0]=author.avatar&populate[1]=category&populate[2]=blocks`;
+  return fetchStrapiData('articles', customQuery);
+}
+
 // fungsi khusus untuk mengambil data guru
 export async function getTeachers() {
   const customQuery = 'populate=*&sort=createdAt:asc';

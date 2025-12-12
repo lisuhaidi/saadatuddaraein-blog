@@ -66,7 +66,7 @@ export default function Navbar({ title }: { title: string }) {
                 <DropdownMenuSeparator />
                 {categories.map((category) => (
                   <DropdownMenuItem key={category.id} asChild>
-                    <a href={`/blog?category=${category.slug}`}>{category.name}</a>
+                    <a href={`/blog/category/${category.slug}`}>{category.name}</a>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
@@ -83,25 +83,25 @@ export default function Navbar({ title }: { title: string }) {
             <DropdownMenuContent align="start" className="w-48">
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                  <a href="/academic/teachers">Ustadz/ah</a>
+                  <a href="/about/teachers">Ustadz/ah</a>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem asChild>
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>Kurikulum</DropdownMenuSubTrigger>
+                    <DropdownMenuSubTrigger>Jenjang Pendidikan</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
                         <DropdownMenuItem asChild>
-                          <a href="/academic/tsanawiyah-school">Madrasah Tsanawiyah</a>
+                          <a href="/academic/stage/mts">Madrasah Tsanawiyah</a>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <a href="/academic/aliyah-school">Madrasah Aliyah</a>
+                          <a href="/academic/stage/ma">Madrasah Aliyah</a>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <a href="/academic/tahfiz-center">Rumah Tahfiz</a>
+                          <a href="/academic/stage/tahfiz">Rumah Tahfiz</a>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <a href="/academic/tpq">TPQ</a>
+                          <a href="/academic/stage/tpq">TPQ</a>
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -117,7 +117,6 @@ export default function Navbar({ title }: { title: string }) {
           <a href="/gallery" className="hover:text-primary transition">Galeri</a>
           <a href="/video" className="hover:text-primary transition">Video</a>
           <a href="/about" className="hover:text-primary transition">Tentang</a>
-          <a href="/contact" className="hover:text-primary transition">Kontak</a>
 
           <Button asChild>
             <a href="/auth/login">Masuk</a>
@@ -160,7 +159,7 @@ export default function Navbar({ title }: { title: string }) {
                 {categories.map((category) => (
                   <a
                     key={category.id}
-                    href={`/blog?category=${category.slug}`}
+                    href={`/blog/category/${category.slug}`}
                     className="block pl-4 py-2 text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
@@ -171,36 +170,36 @@ export default function Navbar({ title }: { title: string }) {
 
               <MobileDropdown label="Edukasi">
                 <a
-                  href="/academic/teachers"
+                  href="/about/teachers"
                   className="block pl-4 py-2 text-base"
                   onClick={() => setOpen(false)}
                 >
                   Ustadz/ah
                 </a>
-                <MobileDropdown label="Kurikulum" className="block pl-4 py-2 text-base">
+                <MobileDropdown label="Jenjang Pendidikan" className="block pl-4 py-2 text-base">
                   <a
-                    href="/academic/tsanawiyah-school"
+                    href="/academic/stage/mts"
                     className="block pl-4 py-2 text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
                     Madrasah Tsanawiyah
                   </a>
                   <a
-                    href="/academic/aliyah-school"
+                    href="/academic/stage/ma"
                     className="block pl-4 py-2 text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
                     Madrasah Aliyah
                   </a>
                   <a
-                    href="/academic/tahfiz-center"
+                    href="/academic/stage/tahfiz"
                     className="block pl-4 py-2 text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
                     Rumah Tahfiz
                   </a>
                   <a
-                    href="/academic/tpq"
+                    href="/academic/stage/tpq"
                     className="block pl-4 py-2 text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
@@ -224,14 +223,6 @@ export default function Navbar({ title }: { title: string }) {
                 onClick={() => setOpen(false)}
               >
                 Tentang
-              </a>
-
-              <a
-                href="/contact"
-                className="hover:text-primary transition"
-                onClick={() => setOpen(false)}
-              >
-                Kontak
               </a>
 
               {/* BUTTONS */}
