@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DEFAULT_API_BASE = 'http://localhost:8001/api/v1/';
+const DEFAULT_API_BASE = 'https://api.julisuhaidi.my.id/api/v1/';
 
 // Vite/ Astro exposes env vars via import.meta.env and requires the VITE_ prefix.
 const API_BASE = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL
@@ -11,7 +11,8 @@ const api = axios.create({
 	baseURL: API_BASE,
 	headers: {
 		'Content-Type': 'application/json'
-	}
+	},
+  withCredentials: true
 });
 
 export default api;

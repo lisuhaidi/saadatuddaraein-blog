@@ -1,14 +1,55 @@
 ---
 import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import LoadingIndicator from "astro-loading-indicator/component"
+
 ---
 <!doctype html>
 
-<html lang="en" class="h-full bg-background">
-  <body class="h-screen overflow-hidden">
-    <div class="h-screen flex">
+<html lang="en" class="h-full">
+  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/floadavicon.svg" />
+		<ViewTransitions />
+		<LoadingIndicator color='#5EA500' threshold={false}/>
+		<meta name="generator" content={Astro.generator} />
+		<title>Saadatuddaraein</title>
+		<script is:inline>
+			/*
+				1. Ambil theme dari localStorage jika ada.
+				2. Kalau belum ada, pakai preferensi OS.
+				3. Terapkan class "dark" SEBELUM render untuk menghindari flicker.
+				4. Terapkan lagi setelah navigasi SPA (astro:after-swap).
+			*/
+
+			function applyTheme() {
+				const saved = localStorage.getItem('theme');
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+				const theme = saved || (prefersDark ? 'dark' : 'light');
+
+				document.documentElement.classList.toggle('dark', theme === 'dark');
+
+				// hanya set jika belum ada (biar tidak menimpa preferensi user)
+				if (!saved) localStorage.setItem('theme', theme);
+			}
+
+			// Jalankan sebelum halaman dirender (initial load)
+			applyTheme();
+
+			// Jalankan ulang SETIAP ada view transition (navigasi)
+			document.addEventListener('astro:after-swap', () => {
+				applyTheme();
+			});
+		</script>
+	</head>
+  
+  <body class="h-screen overflow-hidden bg-background">
+		<div class="h-screen w-screen flex flex-col lg:flex-row">
 
       <!-- KIRI: AREA FORM (1/3) -->
-      <div class="relative w-1/3 flex flex-col justify-center px-8 py-12 mx-auto">
+			<div class="relative w-full lg:w-1/3 flex flex-col justify-center px-6 py-8 lg:px-8 lg:py-12">
         <a 
           href="/" 
           class="absolute top-8 left-8 text-sm font-medium text-muted-foreground hover:text-foreground inline-flex items-center gap-2"
@@ -25,8 +66,8 @@ import '../styles/global.css';
         </div>
       </div>
 
-      <!-- KANAN: GAMBAR (2/3) -->
-      <div class="hidden lg:block w-2/3 relative bg-muted/40">
+			<!-- KANAN: GAMBAR (2/3) - disembunyikan pada mobile -->
+			<div class="hidden lg:block lg:w-2/3 relative bg-muted/40">
         <img 
           src="https://ikadriyarkara.org/wp-content/uploads/2022/06/Anak-sekolah-belajar-di-kelas-scaled.jpg"
           alt="Authentication Illustration"
@@ -37,4 +78,5 @@ import '../styles/global.css';
 
     </div>
   </body>
+					Kelola konten dan penga
 </html>

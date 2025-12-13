@@ -22,7 +22,7 @@ export default defineConfig({
       preprocessorOptions: { additionalData: `@import "./src/styles/global.css";` }
     },
     server: {
-      allowedHosts: ['julisuhaidi.my.id'],
+      allowedHosts: ['www.julisuhaidi.my.id'],
     },
   }
 });

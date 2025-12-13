@@ -1,0 +1,44 @@
+---
+// src/components/extracurricular/ActivitySection.astro
+import ImageCarousel from './ImageCarousel';
+
+export interface Props {
+  title: string;
+  description: string;
+  images: string[];
+  reverse?: boolean;
+}
+
+const { title, description, images, reverse = false } = Astro.props;
+const rowDirection = reverse ? 'md:flex-row-reverse' : 'md:flex-row';
+---
+
+<section class="py-16 md:py-24 border-b">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class:list={[
+      "flex flex-col gap-8 md:gap-12 lg:gap-16 items-center",
+      rowDirection
+    ]}>
+      <!-- Content -->
+      <div class="md:w-1/2 space-y-4">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          {title}
+        </h2>
+        <p class="text-base md:text-lg text-muted-foreground leading-relaxed max-w-prose">
+          {description}
+        </p>
+      </div>
+
+      <!-- Image Carousel -->
+      <div class="md:w-1/2 w-full">
+        <div class="relative">
+          <ImageCarousel 
+            images={images} 
+            title={title} 
+            client:visible 
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

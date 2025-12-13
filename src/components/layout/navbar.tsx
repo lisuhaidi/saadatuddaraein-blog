@@ -16,6 +16,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { getMe,logout } from "@/lib/authApi/authApi";
 
 interface Category {
   id: number;
@@ -25,10 +26,19 @@ interface Category {
   };
 }
 
+interface User {
+  name: string
+  role: string
+}
+
+
 export default function Navbar({ title }: { title: string }) {
   const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
-
+  const [user, setUser] = useState<User | null>(null)
+  const [checkingAuth, setCheckingAuth] = useState(true)
+  
+  // ambil daftar category
   useEffect(() => {
     axios.get<{ data: Category[] }>('/api/listCategories.json')
       .then(response => {
@@ -38,6 +48,38 @@ export default function Navbar({ title }: { title: string }) {
         console.error("Error fetching categories:", error);
       });
   }, []);
+
+  // verifikasi login
+  useEffect(() => {
+    let mounted = true
+
+    getMe()
+      .then((user) => {
+        if (mounted) setUser(user)
+      })
+      .catch(() => {
+        if (mounted) setUser(null)
+      })
+      .finally(() => {
+        if (mounted) setCheckingAuth(false)
+      })
+
+    return () => {
+      mounted = false
+    }
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+      const res = await logout()
+      console.log(res.data)
+    } catch (e) {
+      console.error('Logout error', e)
+    } finally {
+      setUser(null)
+      window.location.href = '/'
+    }
+  }
 
   return (
     <nav className="fixed top-0 z-50 w-full border-b bg-background">
@@ -118,13 +160,42 @@ export default function Navbar({ title }: { title: string }) {
           <a href="/video" className="hover:text-primary transition">Video</a>
           <a href="/about" className="hover:text-primary transition">Tentang</a>
 
-          <Button asChild>
-            <a href="/auth/login">Masuk</a>
-          </Button>
+          {!checkingAuth && !user && (
+            <>
+              <Button asChild>
+                <a href="/auth/login">Masuk</a>
+              </Button>
 
-          <Button asChild variant="outline">
-            <a href="/auth/register">Daftar</a>
-          </Button>
+              <Button asChild variant="outline">
+                <a href="/auth/register">Daftar</a>
+              </Button>
+            </>
+          )}
+
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 font-medium hover:text-primary">
+                  {user.name}
+                  <ChevronDown className="size-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                
+                {user.role ==='ADMIN' && <DropdownMenuItem asChild>
+                  <a href="/admin">Dashboar</a>
+                </DropdownMenuItem>}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="text-red-600 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Keluar
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
         </div>
 
         {/* Mobile Menu (Hamburger) */}
@@ -226,13 +297,46 @@ export default function Navbar({ title }: { title: string }) {
               </a>
 
               {/* BUTTONS */}
-              <Button asChild className="mt-4" onClick={() => setOpen(false)}>
-                <a href="/auth/login">Masuk</a>
-              </Button>
+              {!checkingAuth && !user && (
+                <>
+                  <Button asChild className="mt-4" onClick={() => setOpen(false)}>
+                    <a href="/auth/login">Masuk</a>
+                  </Button>
 
-              <Button asChild variant="outline" onClick={() => setOpen(false)}>
-                <a href="/auth/register">Daftar</a>
-              </Button>
+                  <Button asChild variant="outline" onClick={() => setOpen(false)}>
+                    <a href="/auth/register">Daftar</a>
+                  </Button>
+                </>
+              )}
+
+              {user && (
+                <>
+                  <div className="mt-4 font-semibold">
+                    Halo, {user.name}
+                  </div>
+                  
+                  {user.role ==='ADMIN' && (
+                    <a
+                    href="/admin"
+                    className="text-base hover:text-primary"
+                    onClick={() => setOpen(false)}
+                  >
+                    Dashboard
+                  </a>
+                  )}
+                  
+                  <button
+                    className="text-left text-red-600"
+                    onClick={() => {
+                      handleLogout()
+                      setOpen(false)
+                    }}
+                  >
+                    Keluar
+                  </button>
+                </>
+              )}
+
             </nav>
           </SheetContent>
         </Sheet>

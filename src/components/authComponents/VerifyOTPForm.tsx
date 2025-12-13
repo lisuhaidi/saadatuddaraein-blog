@@ -87,22 +87,12 @@ export default function VerifyOTPForm() {
         // Step 2: Register the user
         const registerPayload = { username, email, password }
         console.debug('[VerifyOTP] POST public/register', registerPayload)
-        const registerRes = await api.post('public/register', registerPayload)
 
-        const token = registerRes.data?.token
-        if (!token) {
-          throw new Error('Token tidak diterima dari server setelah registrasi.')
-        }
-
-        // Simpan token, hapus data sementara, dan redirect
-        localStorage.setItem('authToken', token)
-        sessionStorage.removeItem('registerEmail')
-        sessionStorage.removeItem('registerUsername')
-        sessionStorage.removeItem('registerPassword')
+        await api.post('public/register', registerPayload)
 
         setMessage('Registrasi berhasil! Anda akan diarahkan ke dashboard...')
         setTimeout(() => {
-          window.location.replace('/dashboard')
+          window.location.replace('/')
         }, 2000)
       } else {
         setError(`Gagal verifikasi OTP (status ${otpRes?.status}).`)

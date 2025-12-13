@@ -37,38 +37,40 @@ export default function LoginForm() {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setMessage(null)
-    setError(null)
-    setLoading(true)
+  setMessage(null)
+  setError(null)
+  setLoading(true)
 
-    try {
-      console.debug('[Login] POST', values)
-      const res = await api.post('public/login', values)
+  try {
+    console.debug('[Login] POST', values)
 
-      const token = res.data?.token
-      if (!token) {
-        throw new Error('Token tidak ditemukan pada respons server.')
-      }
+    // ⬇️ PENTING: credentials include
+    await api.post('public/login', values, {
+      withCredentials: true,
+    })
 
-      localStorage.setItem('authToken', token)
-      setMessage('Login berhasil! Mengarahkan ke dashboard...')
-      form.reset()
+    // ⬇️ JANGAN cari token
+    // ⬇️ JANGAN simpan apa pun di localStorage
 
-      setTimeout(() => {
-        window.location.replace('/dashboard')
-      }, 2000)
-    } catch (err: any) {
-      console.error('[Login] request error', err)
-      const errorMessage =
-        err?.response?.data?.error ||
-        err?.response?.data?.message ||
-        err.message ||
-        'Username atau password salah.'
-      setError(errorMessage)
-    } finally {
-      setLoading(false)
-    }
+    setMessage('Login berhasil! Mengarahkan ke dashboard...')
+    form.reset()
+
+    setTimeout(() => {
+      window.location.replace('/')
+    }, 1500)
+  } catch (err: any) {
+    console.error('[Login] request error', err)
+    const errorMessage =
+      err?.response?.data?.error ||
+      err?.response?.data?.message ||
+      err.message ||
+      'Username atau password salah.'
+    setError(errorMessage)
+  } finally {
+    setLoading(false)
   }
+}
+
 
   return (
     <Card>

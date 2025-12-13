@@ -64,11 +64,6 @@ export default function ForgetPasswordForm() {
         return
       }
 
-      if (users.length === 1) {
-        await sendReset(users[0].id, users[0].email)
-        return
-      }
-
       setStep("username")
     } catch (err) {
       showError(err)

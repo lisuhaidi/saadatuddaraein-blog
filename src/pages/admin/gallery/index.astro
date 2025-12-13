@@ -1,0 +1,171 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import gallery from "@/data/gallery.json";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+
+/* ======================
+   Pagination Logic
+====================== */
+const allPosts = gallery.data ?? [];
+const pageSize = 10;
+
+const totalPages = Math.max(1, Math.ceil(allPosts.length / pageSize));
+
+const pageParam = Astro.url.searchParams.get("page");
+const currentPage = Math.max(
+  1,
+  Math.min(parseInt(pageParam ?? "1", 10) || 1, totalPages)
+);
+
+const startIndex = (currentPage - 1) * pageSize;
+const endIndex = startIndex + pageSize;
+const paginatedPosts = allPosts.slice(startIndex, endIndex);
+---
+
+<Layout>
+  <div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">
+      Gallery Management
+    </h1>
+    <div class="mb-6">
+      <a href="/admin/gallery/upload">
+        <Button>Tambah Galeri</Button>
+      </a>
+    </div>
+
+    <!-- TABLE -->
+    <Table>
+      <TableCaption>Daftar item galeri</TableCaption>
+
+      <TableHeader>
+        <TableRow>
+          <TableHead>ID</TableHead>
+          <TableHead>Title</TableHead>
+          <TableHead>Description</TableHead>
+          <TableHead>Created At</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+
+      <TableBody>
+        {
+          paginatedPosts.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center text-muted-foreground">
+                Tidak ada data
+              </TableCell>
+            </TableRow>
+          ) : (
+            paginatedPosts.map((item) => (
+              <TableRow>
+                <TableCell>{item.id}</TableCell>
+                <TableCell>{item.title}</TableCell>
+                <TableCell>{item.description}</TableCell>
+                <TableCell>
+                  {new Date(item.created_at).toLocaleDateString("id-ID")}
+                </TableCell>
+                <TableCell className="text-right space-x-2">
+                  <a href={`/admin/gallery/edit?id=${item.id}`}>
+                    <Button variant="outline" size="sm" >
+                      Edit
+                    </Button>
+                  </a>
+                  <Button variant="destructive" size="sm" data-id={item.id}>
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          )
+        }
+      </TableBody>
+    </Table>
+
+    <!-- PAGINATION -->
+    <div class="flex justify-center items-center gap-2 mt-6 flex-wrap">
+      {currentPage > 1 && (
+        <a href={`?page=${currentPage - 1}`}>
+          <Button variant="outline" size="sm">
+            Prev
+          </Button>
+        </a>
+      )}
+
+      {
+        Array.from({ length: totalPages }).map((_, i) => {
+          const page = i + 1;
+          return (
+            <a href={`?page=${page}`}>
+              <Button
+                size="sm"
+                variant={page === currentPage ? "default" : "outline"}
+              >
+                {page}
+              </Button>
+            </a>
+          );
+        })
+      }
+
+      {currentPage < totalPages && (
+        <a href={`?page=${currentPage + 1}`}>
+          <Button variant="outline" size="sm">
+            Next
+          </Button>
+        </a>
+      )}
+    </div>
+
+    <!-- INFO -->
+    <p class="text-center text-sm text-muted-foreground mt-3">
+      Page {currentPage} of {totalPages}
+    </p>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const deleteButtons = document.querySelectorAll<HTMLButtonElement>(
+      'button[data-id]'
+    );
+
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", async (event) => {
+        const id = (event.currentTarget as HTMLButtonElement).dataset.id;
+        if (!id) return;
+
+        if (confirm(`Are you sure you want to delete item with ID: ${id}?`)) {
+          try {
+            const response = await fetch("/api/gallery/delete-gallery", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id }),
+            });
+
+            if (response.ok) {
+              alert("Item deleted successfully!");
+              window.location.reload();
+            } else {
+              const data = await response.json();
+              alert(`Failed to delete item: ${data.message}`);
+            }
+          } catch (error) {
+            console.error("Error deleting item:", error);
+            alert("An error occurred while deleting the item.");
+          }
+        }
+      });
+    });
+  });
+</script>

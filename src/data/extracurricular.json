@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Pramuka",
+    "description": "Gerakan Pramuka Indonesia adalah nama organisasi pendidikan nonformal yang menyelenggarakan pendidikan kepanduan di Indonesia. Kegiatan ini membentuk karakter, kemandirian, dan keterampilan bertahan hidup di alam terbuka melalui berbagai aktivitas menarik seperti berkemah, tali-temali, dan penjelajahan.",
+    "images": [
+      "https://placehold.co/600x400/5EA500/FFFFFF/png?text=Pramuka+1",
+      "https://placehold.co/600x400/5EA500/FFFFFF/png?text=Pramuka+2",
+      "https://placehold.co/600x400/5EA500/FFFFFF/png?text=Pramuka+3",
+      "https://placehold.co/600x400/5EA500/FFFFFF/png?text=Pramuka+4"
+    ]
+  },
+  {
+    "title": "Marawis",
+    "description": "Kesenian Marawis adalah sebuah jenis 'band tepuk' dengan perkusi sebagai alat musik utamanya. Musik ini merupakan kolaborasi antara kesenian Timur Tengah dan Betawi, dan memiliki unsur keagamaan yang kental. Lirik lagu yang dibawakan merupakan pujian dan kecintaan kepada Sang Pencipta.",
+    "images": [
+      "https://placehold.co/600x400/A52A2A/FFFFFF/png?text=Marawis+1",
+      "https://placehold.co/600x400/A52A2A/FFFFFF/png?text=Marawis+2",
+      "https://placehold.co/600x400/A52A2A/FFFFFF/png?text=Marawis+3",
+      "https://placehold.co/600x400/A52A2A/FFFFFF/png?text=Marawis+4"
+    ]
+  },
+  {
+    "title": "English Club",
+    "description": "English Club adalah wadah bagi para santri untuk melatih dan meningkatkan kemampuan berbahasa Inggris. Melalui diskusi, debat, permainan, dan presentasi, para anggota didorong untuk aktif menggunakan bahasa Inggris dalam suasana yang santai dan mendukung.",
+    "images": [
+      "https://placehold.co/600x400/0000FF/FFFFFF/png?text=English+Club+1",
+      "https://placehold.co/600x400/0000FF/FFFFFF/png?text=English+Club+2",
+      "https://placehold.co/600x400/0000FF/FFFFFF/png?text=English+Club+3",
+      "https://placehold.co/600x400/0000FF/FFFFFF/png?text=English+Club+4"
+    ]
+  },
+  {
+    "title": "LPTQ (Lembaga Pengembangan Tilawatil Qur'an)",
+    "description": "LPTQ adalah lembaga yang bertujuan untuk meningkatkan kemampuan santri dalam membaca, menghafal, dan memahami Al-Qur'an. Program ini mencakup berbagai cabang musabaqah seperti Tilawah, Tahfiz, Kaligrafi, dan Syarhil Qur'an, mempersiapkan santri untuk berprestasi di berbagai tingkatan.",
+    "images": [
+      "https://placehold.co/600x400/006400/FFFFFF/png?text=LPTQ+1",
+      "https://placehold.co/600x400/006400/FFFFFF/png?text=LPTQ+2",
+      "https://placehold.co/600x400/006400/FFFFFF/png?text=LPTQ+3",
+      "https://placehold.co/600x400/006400/FFFFFF/png?text=LPTQ+4"
+    ]
+  }
+]

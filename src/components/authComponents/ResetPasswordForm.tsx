@@ -51,17 +51,8 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       console.debug('[ResetPassword] POST', payload)
       const res = await api.post('public/password/reset', payload)
 
-      const newAuthToken = res.data?.token
-      if (newAuthToken) {
-        localStorage.setItem('authToken', newAuthToken)
-      }
-
-      setMessage(res.data?.message || 'Password berhasil direset. Anda sekarang telah masuk.')
+      setMessage(res.data?.message || 'Password berhasil direset. silakan masuk.')
       form.reset()
-
-      setTimeout(() => {
-        window.location.replace('/dashboard')
-      }, 3000)
     } catch (err: any) {
       console.error('[ResetPassword] request error', err)
       const errorMessage =
@@ -136,7 +127,7 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           </Button>
            <p className="text-center text-sm text-muted-foreground">
             Kembali ke halaman{' '}
-            <a href="/login" className="underline hover:text-primary">
+            <a href="/auth/login" className="underline hover:text-primary">
               Masuk
             </a>
           </p>
