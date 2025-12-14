@@ -5,6 +5,8 @@ import react from '@astrojs/react';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 
+import node from '@astrojs/node';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
@@ -12,10 +14,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
-   output: 'server',
+  output: 'server',
+
   alias: {
     '@': './src',
   },
+
   vite: {
     plugins: [tailwindcss()],
     css: {
@@ -24,6 +28,8 @@ export default defineConfig({
     server: {
       allowedHosts: ['www.julisuhaidi.my.id'],
     },
-  }
+  },
+  adapter: node({
+    mode: 'standalone'
+  })
 });
-

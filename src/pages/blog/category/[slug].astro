@@ -4,28 +4,6 @@ import ListLayout from "@/layouts/ListLayout.astro";
 import { getArticles, getArticlesByCategorySlug } from "@/lib/strapi";
 import type { GetStaticPaths } from "astro";
 
-export const getStaticPaths = (async () => {
-  const articles = await getArticles();
-  const categories = articles.map((article) => article.category);
-  
-  // Create a unique set of categories
-  const uniqueCategories = categories.reduce((acc, current) => {
-    if (current && !acc.find((item) => item.slug === current.slug)) {
-      acc.push(current);
-    }
-    return acc;
-  }, []);
-
-  const paths = uniqueCategories.map((category) => {
-    return {
-      params: {
-        slug: category.slug,
-      },
-    };
-  });
-  return paths;
-}) satisfies GetStaticPaths;
-
 const { slug } = Astro.params;
 
 const articles = await getArticlesByCategorySlug(slug);

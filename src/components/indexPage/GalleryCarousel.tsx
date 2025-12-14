@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import gallery from "@/data/gallery.json";
 
-
 const galleryData = gallery.data;
-
-console.log(galleryData);
-
 
 export default function GalleryCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);

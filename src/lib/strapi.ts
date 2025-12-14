@@ -1,6 +1,5 @@
 // src/lib/strapi.ts
 // Mengambil variabel dari .env
-import axios from "axios";
 
 const STRAPI_URL = import.meta.env.PUBLIC_STRAPI_URL;
 const STRAPI_API_TOKEN = import.meta.env.PUBLIC_STRAPI_API_TOKEN;
@@ -16,6 +15,9 @@ const DEFAULT_POPULATE_QUERY = 'populate=*';
  */
 export async function fetchStrapiData(endpoint: string, query: string = DEFAULT_POPULATE_QUERY) {
   const url = `${STRAPI_URL}/api/${endpoint}?${query}`;
+  if (!STRAPI_URL) {
+    console.warn('fetchStrapiData: PUBLIC_STRAPI_URL is not defined. Request may fail.');
+  }
   console.log(`Fetching from: ${url}`);
   
   const response = await fetch(url, {
@@ -67,6 +69,12 @@ export async function getArticlesByCategorySlug(categorySlug: string) {
   return fetchStrapiData('articles', customQuery);
 }
 
+// fungsi khusus untuk mengambil data blog categories
+export async function getCategories() {
+  const response = await fetchStrapiData('categories');  
+  return response;
+}
+
 // fungsi khusus untuk mengambil data guru
 export async function getTeachers() {
   const customQuery = 'populate=*&sort=createdAt:asc';
@@ -88,10 +96,27 @@ export async function getVideos() {
   return response;
 }
 
-export async function getCategories() {
-  const response = await fetchStrapiData('categories');  
-  return response;
+// fungsi khusus untuk mengambil data testimonies
+export async function getTestimonies() {
+  // Be resilient to different collection naming in Strapi (testimonies vs testimonials)
+  const candidates = ['testimonies', 'testimonials', 'testimony'];
+  for (const endpoint of candidates) {
+    try {
+      const res = await fetchStrapiData(endpoint);
+      console.log(`getTestimonies: fetched from /api/${endpoint}clear`);
+      if (Array.isArray(res) && res.length > 0) return res;
+      // if response has items mapped from Strapi (even if zero), continue trying other names
+    } catch (err) {
+      console.warn(`getTestimonies: gagal mengambil dari /api/${endpoint}:`, err instanceof Error ? err.message : err);
+      // try next candidate
+    }
+  }
+
+  // Jika semua gagal/kosong, kembalikan array kosong (caller akan menanganinya)
+  console.warn('getTestimonies: tidak menemukan data pada semua endpoint kandidat, mengembalikan [].');
+  return [];
 }
+
 
 
 // Fungsi khusus untuk mengambil video tunggal berdasarkan slug
@@ -130,4 +155,38 @@ export async function fetchSingleCollection( {endpoint, customQuery = 'populate=
   }
   // Fallback for unexpected structure
   return json.data;
+}
+
+/**
+ * Fungsi untuk mengirim testimoni baru ke Strapi
+ * Endpoint: /api/testimonies (POST)
+ */
+export async function postTestimony(data: { name: string; position: string; body: string; star: number }) {
+  const endpoint = 'testimonies'; // Menggunakan 'testimonies' (plural) sesuai konvensi Strapi
+  const url = `${STRAPI_URL}/api/${endpoint}`;
+  
+  const payload = {
+    data: {
+      name: data.name,
+      position: data.position,
+      body: data.body,
+      star: data.star,
+    }
+  };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${STRAPI_API_TOKEN}`, 
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gagal mengirim testimoni ke ${endpoint}. Status: ${response.status}. Error: ${errorText}`);
+  }
+
+  return await response.json();
 }

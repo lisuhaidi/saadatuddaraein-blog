@@ -182,12 +182,6 @@ export default function LatestBlog() {
                       {/* Author & Read More */}
                       <div className="flex items-center justify-between pt-3 border-t border-border">
                         <div className="flex items-center gap-2">
-                          <img
-                            src={post.authorAvatar || '/default-avatar.png'}
-                            alt={post.authorName}
-                            className="w-7 h-7 rounded-full object-cover"
-                            loading="lazy"
-                          />
                           <span className="text-xs text-muted-foreground">
                             {post.authorName}
                           </span>

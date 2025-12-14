@@ -183,7 +183,7 @@ export default function Navbar({ title }: { title: string }) {
               <DropdownMenuContent align="end">
                 
                 {user.role ==='ADMIN' && <DropdownMenuItem asChild>
-                  <a href="/admin">Dashboar</a>
+                  <a href="/admin">Dashboar Admin</a>
                 </DropdownMenuItem>}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -321,7 +321,7 @@ export default function Navbar({ title }: { title: string }) {
                     className="text-base hover:text-primary"
                     onClick={() => setOpen(false)}
                   >
-                    Dashboard
+                    Dashboard Admin
                   </a>
                   )}
                   

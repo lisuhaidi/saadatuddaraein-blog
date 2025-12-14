@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import TestimonyForm from "@/components/testimony/TestimonyForm";
+import CardTestimonies from "@/components/testimony/CardTestimonies";
+
+
+const url = new URL('/api/testimonies.json', Astro.url);
+const res = await fetch(url).then(r => r.json());
+const data = res.filter((t: any) =>  t.isConfirmed === true)
+---
+<Layout>
+    <div class="container mx-auto px-4 py-26">
+        <!-- Bagian Form Input -->
+        <div class="max-w-3xl mx-auto mb-16">
+            <TestimonyForm client:load />
+        </div>
+
+        <!-- Bagian List Testimoni (Dibawahnya) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.isArray(data) && data.map((item: any) => (
+                <CardTestimonies item={item} />
+            ))}
+        </div>
+    </div>
+</Layout>

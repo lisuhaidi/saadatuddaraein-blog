@@ -49,7 +49,7 @@ export default function FAQSection() {
         <div className="mt-10 text-center p-6 bg-background rounded-lg border">
           <p className="text-muted-foreground mb-4">Masih ada pertanyaan lain? Jangan ragu untuk menghubungi kami</p>
           <a
-            href="/contact"
+            href="/about"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
           >
             Hubungi Kami
